@@ -14,26 +14,24 @@
 
 ### 1. Installation
 
-Install docker 
-install a few prerequisite packages which let apt use packages over HTTPS:
-
+Install Python3 
 ```
-sudo apt install apt-transport-https ca-certificates curl software-properties-common
+apt install python3
 ```
 
-add the GPG key for the official Docker repository to your system:
+clone the official github
 ```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-```
-
-add the Docker repository to APT sources:
-```
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+git clone https://github.com/BinaryDefense/artillery.git
 ```
 
-Update your existing list of packages again for the addition to be recognized:
+Setup
 ```
-sudo apt update
+python3 setup.py
+```
+
+Config 
+```
+nano /var/artitlery/config
 ```
 
 Make sure you are about to install from the Docker repo instead of the default Ubuntu repo:
