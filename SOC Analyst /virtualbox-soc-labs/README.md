@@ -1,4 +1,3 @@
-(cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF'
 diff --git a/virtualbox-soc-labs/README.md b/virtualbox-soc-labs/README.md
 --- a/virtualbox-soc-labs/README.md
 +++ b/virtualbox-soc-labs/README.md
@@ -147,5 +146,3 @@ diff --git a/virtualbox-soc-labs/README.md b/virtualbox-soc-labs/README.md
 +## 📄 License
 +
 +This project is licensed under the MIT License - see the LICENSE file for details.
-EOF
-)
