@@ -260,6 +260,8 @@ sudo apt install -y suricata
 
 # Configure Suricata
 sudo tee /etc/suricata/suricata.yaml > /dev/null <<EOF
+%YAML 1.1
+---
 vars:
   address-groups:
     HOME_NET: "[10.0.2.0/24]"
