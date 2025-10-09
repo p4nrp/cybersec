@@ -106,7 +106,7 @@ Subsystem sftp /usr/lib/openssh/sftp-server
 UsePAM yes
 EOF
 
-sudo systemctl restart sshd
+sudo systemctl restart ssh
 ```
 
 ### 4. Install Vulnerable Web Applications
