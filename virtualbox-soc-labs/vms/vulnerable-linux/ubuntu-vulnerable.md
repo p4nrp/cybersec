@@ -294,7 +294,7 @@ sudo systemctl restart auditd
 # Configure rsyslog to forward logs
 sudo tee -a /etc/rsyslog.conf > /dev/null <<EOF
 
-# Forward logs to SIEM
+# Forward logs to SIEM Machine
 *.* @@10.0.2.100:514
 EOF
 
