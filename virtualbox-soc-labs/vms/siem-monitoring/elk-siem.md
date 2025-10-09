@@ -393,6 +393,9 @@ sudo systemctl start wazuh-manager
 # add repo
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
+
+# Update repo
+apt update
 # Install Filebeat
 sudo apt install -y filebeat
 
