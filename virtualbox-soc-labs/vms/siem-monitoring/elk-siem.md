@@ -476,7 +476,7 @@ chmod +x /opt/create-soc-dashboards.sh
 #### Custom Detection Rules
 ```bash
 # Create custom Suricata rules
-sudo tee /etc/suricata/rules/soc-lab-custom.rules > /dev/null <<EOF
+sudo tee /etc/suricata/rules/soc-lab-custom.rules > /dev/null <<`EOF`
 # Brute force detection
 alert tcp any any -> $HOME_NET 22 (msg:"SSH Brute Force Attempt"; flow:to_server,established; content:"SSH"; threshold:type both,track by_src,count 5,seconds 60; sid:1000001; rev:1;)
 
