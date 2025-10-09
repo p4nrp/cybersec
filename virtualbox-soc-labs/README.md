@@ -1,5 +1,10 @@
 # VirtualBox SOC Analyst Practice Labs
 
+<p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/N9KAUN8.png">
+</p>
+Created By : 0xp4nrp
+
 This repository contains a comprehensive VirtualBox lab environment designed for practicing cybersecurity SOC (Security Operations Center) analyst skills. The lab includes vulnerable systems, monitoring tools, attack scenarios, and hands-on exercises.
 
 ## 🎯 Lab Overview
