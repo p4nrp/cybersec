@@ -390,6 +390,9 @@ sudo systemctl start wazuh-manager
 
 #### Filebeat Configuration for Log Forwarding
 ```bash
+# add repo
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
 # Install Filebeat
 sudo apt install -y filebeat
 
