@@ -11,6 +11,7 @@ slmgr /ato
 slmgr /dlv
 
 ## Licence Key
+```
 Windows Server 2022 Standard        VDYBN-27WPP-V4HQT-9VMD4-VMK7H
 Windows Server 2022 Datacenter      WX4NM-KYWYW-QJJR4-XV3QB-6VM33
 
@@ -45,7 +46,7 @@ Windows 10 Enterprise N LTSB 2016   QFFDN-GRT3P-VKWWX-X7T3R-8B639
 
 Windows 10 Enterprise LTSC 2019/2021    M7XTQ-FN8P6-TTKYV-9D4CC-J462D
 Windows 10 Enterprise N LTSC 2019/2021  92NFX-8DJQP-P6BBQ-THF9C-7CG2H
-
+```
 ## Online KMS Server Host Address
 * kms8.msguides.com
 * kms.digiboy.ir
