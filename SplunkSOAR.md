@@ -1,19 +1,19 @@
-# Splunk SOAR Installation and Configuration on Ubuntu Server
+# Splunk SOAR Installation and Configuration on CentOS 10 Stream
 
 ## Lab Setup & Requirements
 
 - VirtualBox/VMware Workstation  
-- Ubuntu Server VM with at least 8 vCPUs, 16 GB RAM, 100 GB disk  
+- CentOS Stream 10 VM with at least 8 vCPUs, 16 GB RAM, 100 GB disk  
 
 ---
 
 ## Step 1: Update the System
 ```
-sudo apt update -y
-sudo apt upgrade -y
+sudo dnf update -y
+sudo dnf upgrade -y
 ```
 ## Step 2: Download the Phantom Package
-Download the Splunk SOAR package for Linux (CentOS/RHEL packages may work on Ubuntu for unprivileged install, but verify compatibility):
+Download the Splunk SOAR package for Linux (the EL7 package generally works on CentOS 10 Stream for unprivileged installation, but verify compatibility):
 ```
 wget -O splunk_soar-unpriv-6.2.1.305-7c40b403-el7-x86_64.tgz "https://download.splunk.com/products/splunk_soar-unpriv/releases/6.2.1/linux/splunk_soar-unpriv-6.2.1.305-7c40b403-el7-x86_64.tgz"
 ```
@@ -29,38 +29,60 @@ Run the provided system preparation script as root or with sudo:
 cd /opt/phantom
 sudo ./soar-prepare-system
 ```
+if error `Unable to read CentOS/RHEL version from /etc/redhat-release.` fix it like 
+```
+sudo sh -c 'echo "CentOS Stream release 10" > /etc/redhat-release'
+```
 During this process:
 
-- Install prerequisite DEB packages equivalent to the RPMs for Ubuntu. The script might need editing or manual installation for any missing dependencies.
+- Install prerequisite **RPM** packages for CentOS.  
+  If the script fails due to missing dependencies, install them manually using:
+```
+sudo dnf install -y python3 python3-pip python3-virtualenv ntp ntpdate
+libffi-devel openssl-devel gcc gcc-c++ make git
+```
 
-Common packages you might need to manually install on Ubuntu (before running `./soar-prepare-system`) include:
-```
-sudo apt install -y python3 python3-pip python3-venv ntp ntpdate libffi-dev libssl-dev build-essential git
-```
 - For **GlusterFS**, install if clustering and using external file shares:
 ```
-sudo apt install -y glusterfs-server
+sudo dnf install -y glusterfs-server
+sudo systemctl enable glusterd
+sudo systemctl start glusterd
 ```
 - For **ntpd**, enable and start the service:
 ```
-sudo systemctl enable ntp
-sudo systemctl start ntp
+sudo systemctl enable ntpd
+sudo systemctl start ntpd
 ```
 - Create a **non-privileged user** for running Splunk SOAR:
 ```
 sudo adduser --system --group phantom
 ```
-- Set password if prompted and configure file descriptor limits for that user by editing `/etc/security/limits.conf` or similar mechanism.
+- Optionally set a password and configure file descriptor limits for that user:
+```
+sudo passwd phantom
+sudo bash -c 'echo "phantom hard nofile 65535" >> /etc/security/limits.conf'
+sudo bash -c 'echo "phantom soft nofile 65535" >> /etc/security/limits.conf'
+```
 ---
 
 ## Step 5: Install Splunk SOAR
-
 Run the installation script (as the non-privileged user or using sudo depending on the mode):
 ```
 sudo ./soar-install
 ```
-## Step 6: Access the Web Interface
 
+## Step 6: Enable and Start the Service
+After installation, enable and start the SOAR service:
+```
+sudo systemctl enable phantom
+sudo systemctl start phantom
+```
+Check the service status:
+```
+sudo systemctl status phantom
+```
+
+## Step 7: Access the Web Interface
 Open a browser and navigate to:
 ```
 https://<ip-address-or-hostname>:<custom-https-port>
@@ -71,13 +93,24 @@ https://<ip-address-or-hostname>:<custom-https-port>
 
 ---
 
+## Step 8: Configure Firewall (Optional)
+If `firewalld` is active, allow HTTPS access:
+```
+sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --reload
+```
+
+---
+
 ## Conclusion
-By following the above steps adjusted for Ubuntu, you create a Splunk SOAR platform for security automation and incident response. This forms the base for integrating with SIEMs, firewalls, and other security tools in an Ubuntu environment.
+By following the above steps for CentOS 10 Stream, you create a Splunk SOAR platform for security automation and incident response.  
+This forms the foundation for integrating with SIEMs, firewalls, and other cybersecurity tools in a CentOS environment.
+
 ---
 
 ## Additional Notes
-- The package is built for EL7 (CentOS7) but the unprivileged install may work on Ubuntu with manual dependency resolution.
-- Verify dependencies manually if `./soar-prepare-system` fails on Ubuntu.
-- Adjust any scripts or steps referring to `yum` or `systemctl` in ways specific to Ubuntu (`apt`, `systemctl` commands).
-- Review official Splunk SOAR documentation for Ubuntu-specific support or newer packages.
-- If needed, help can be provided to create or adapt installation scripts to automate this process for Ubuntu.
+- The package is originally built for **EL7 (CentOS 7)** but works on CentOS Stream 10 with minor manual dependency resolution.  
+- Verify dependencies manually if `./soar-prepare-system` fails.  
+- Adjust any scripts or steps referring to `yum` or Ubuntu commands (`apt`) to their CentOS equivalents (`dnf`).  
+- Review official [Splunk SOAR Documentation](https://docs.splunk.com/Documentation/SOAR) for updates or new versions.  
+- If desired, you can automate these steps via a Bash installation script for streamlined deployment.
