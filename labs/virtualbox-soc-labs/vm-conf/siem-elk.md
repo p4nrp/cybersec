@@ -493,9 +493,9 @@ EOF
 ```
 
 ### 9. LAST THING
-```
+
 ### SIEM System (10.0.2.100)
-```bash
+```
 # Configure log collection from all systems
 # Rsyslog configuration for centralized logging
 cat >> /etc/rsyslog.conf << 'EOF'
@@ -513,10 +513,12 @@ $template DynamicFile,"/var/log/remote-hosts/%HOSTNAME%/%programname%.log"
 *.* ?DynamicFile
 & stop
 EOF
-
+```
+```
 systemctl restart rsyslog
-
+```
 # Configure Suricata for network monitoring
+```
 cat > /etc/suricata/suricata.yaml << 'EOF'
 vars:
   address-groups:
@@ -546,21 +548,10 @@ outputs:
 EOF
 ```
 
-## Network Monitoring Configuration
-
-### Traffic Mirroring Setup
-```bash
-# Configure network tap for monitoring (if using multiple interfaces)
-# This would be done on a physical switch or hypervisor level
-# For VirtualBox, we rely on promiscuous mode
-
-# Enable promiscuous mode on SIEM VM
-VBoxManage modifyvm "ELK-SIEM" --nicpromisc1 allow-all
-```
-
 ### Suricata Rules for Lab Environment
-```bash
+
 # Custom rules for lab detection
+```
 cat > /etc/suricata/rules/soc-lab.rules << 'EOF'
 # Internal network scanning
 alert icmp $HOME_NET any -> $HOME_NET any (msg:"Internal Network Scan"; itype:8; threshold:type both,track by_src,count 10,seconds 60; sid:1000100; rev:1;)
@@ -582,32 +573,33 @@ EOF
 ```
 
 ## Firewall Configuration
-
 ### Ubuntu Systems (iptables)
-```bash
 # Basic firewall rules for vulnerable systems
 # Allow necessary services but log connections
 
 # SIEM system - allow log collection
+```
 iptables -A INPUT -p tcp --dport 514 -j ACCEPT
 iptables -A INPUT -p udp --dport 514 -j ACCEPT
 iptables -A INPUT -p tcp --dport 5601 -j ACCEPT  # Kibana
 iptables -A INPUT -p tcp --dport 9200 -j ACCEPT  # Elasticsearch
-
+```
 # Vulnerable Linux system - allow attack vectors
+```
 iptables -A INPUT -p tcp --dport 22 -j ACCEPT   # SSH
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT   # HTTP
 iptables -A INPUT -p tcp --dport 21 -j ACCEPT   # FTP
 iptables -A INPUT -p tcp --dport 23 -j ACCEPT   # Telnet
 iptables -A INPUT -p tcp --dport 3306 -j ACCEPT # MySQL
-
+```
 # Log all connections for analysis
+```
 iptables -A INPUT -j LOG --log-prefix "IPTABLES-INPUT: "
 iptables -A OUTPUT -j LOG --log-prefix "IPTABLES-OUTPUT: "
-
-# Save rules
-iptables-save > /etc/iptables/rules.v4
 ```
+# Save rules
+```
+iptables-save > /etc/iptables/rules.v4
 ```
 ## Service Status and Ports
 
