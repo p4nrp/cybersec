@@ -1,4 +1,10 @@
 ### Domain Controller (10.0.2.10)
+
+# Change the Hostname
+```
+Rename-Computer -NewName "SOC-DC1" -Restart
+```
+
 ```powershell
 # Install Active Directory Domain Services
 Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
