@@ -9,8 +9,8 @@
 
 ## Step 1: Update the System
 ```
-sudo apt-get update -y
-sudo apt-get upgrade -y
+sudo apt update -y
+sudo apt upgrade -y
 ```
 ## Step 2: Download the Phantom Package
 Download the Splunk SOAR package for Linux (CentOS/RHEL packages may work on Ubuntu for unprivileged install, but verify compatibility):
@@ -35,11 +35,11 @@ During this process:
 
 Common packages you might need to manually install on Ubuntu (before running `./soar-prepare-system`) include:
 ```
-sudo apt-get install -y python3 python3-pip python3-venv ntp ntpdate libffi-dev libssl-dev build-essential git
+sudo apt install -y python3 python3-pip python3-venv ntp ntpdate libffi-dev libssl-dev build-essential git
 ```
 - For **GlusterFS**, install if clustering and using external file shares:
 ```
-sudo apt-get install -y glusterfs-server
+sudo apt install -y glusterfs-server
 ```
 - For **ntpd**, enable and start the service:
 ```
@@ -76,7 +76,6 @@ By following the above steps adjusted for Ubuntu, you create a Splunk SOAR platf
 ---
 
 ## Additional Notes
-
 - The package is built for EL7 (CentOS7) but the unprivileged install may work on Ubuntu with manual dependency resolution.
 - Verify dependencies manually if `./soar-prepare-system` fails on Ubuntu.
 - Adjust any scripts or steps referring to `yum` or `systemctl` in ways specific to Ubuntu (`apt`, `systemctl` commands).
