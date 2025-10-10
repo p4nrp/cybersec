@@ -5,6 +5,7 @@
 Rename-Computer -NewName "SOC-DC1" -Restart
 ```
 
+# common set
 ```powershell
 # Install Active Directory Domain Services
 Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
