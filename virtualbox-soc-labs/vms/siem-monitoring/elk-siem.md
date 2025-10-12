@@ -559,6 +559,8 @@ chmod +x /opt/elk-maintenance.sh
 # Add to crontab
 echo "0 2 * * * /opt/elk-maintenance.sh >> /var/log/elk-maintenance.log 2>&1" | sudo crontab -
 ```
+## Additional maintenance scripts
+`systemctl is-active elasticsearch` WILL GIVE THE OUTPUT "active" or inactive
 
 ## Troubleshooting
 
