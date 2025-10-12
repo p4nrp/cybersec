@@ -560,7 +560,9 @@ chmod +x /opt/elk-maintenance.sh
 echo "0 2 * * * /opt/elk-maintenance.sh >> /var/log/elk-maintenance.log 2>&1" | sudo crontab -
 ```
 ## Additional maintenance scripts
+
 `systemctl is-active elasticsearch` WILL GIVE THE OUTPUT "active" or inactive
+`suricata -T -c /etc/suricata/suricata.yaml -v` Output: Configuration provided was successfully loaded.Exiting. Bye!
 
 ## Troubleshooting
 
