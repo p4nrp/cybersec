@@ -127,7 +127,7 @@ sudo cp dvwa/config/config.inc.php.dist dvwa/config/config.inc.php
 #### WebGoat
 ```bash
 # Install Java
-sudo apt install -y openjdk-8-jdk
+apt install openjdk-17-jdk -y
 
 # Download and setup WebGoat
 cd /opt
