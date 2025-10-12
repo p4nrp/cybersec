@@ -362,7 +362,30 @@ sudo systemctl enable suricata
 sudo systemctl start suricata
 ```
 
-#### Wazuh Agent (HIDS)
+### Suricata Rules for Lab Environment
+```bash
+# Custom rules for lab detection
+cat > /etc/suricata/rules/soc-lab.rules << 'EOF'
+# Internal network scanning
+alert icmp $HOME_NET any -> $HOME_NET any (msg:"Internal Network Scan"; itype:8; threshold:type both,track by_src,count 10,seconds 60; sid:1000100; rev:1;)
+
+# Brute force attacks
+alert tcp any any -> $HOME_NET 22 (msg:"SSH Brute Force"; flow:to_server,established; content:"SSH"; threshold:type both,track by_src,count 5,seconds 60; sid:1000101; rev:1;)
+alert tcp any any -> $HOME_NET 3389 (msg:"RDP Brute Force"; flow:to_server,established; threshold:type both,track by_src,count 5,seconds 60; sid:1000102; rev:1;)
+
+# Web application attacks
+alert http any any -> $HOME_NET any (msg:"SQL Injection Attempt"; flow:to_server,established; content:"union select"; nocase; sid:1000103; rev:1;)
+alert http any any -> $HOME_NET any (msg:"XSS Attempt"; flow:to_server,established; content:"<script"; nocase; sid:1000104; rev:1;)
+
+# Malware communication
+alert tcp $HOME_NET any -> any 4444 (msg:"Meterpreter Communication"; flow:to_server,established; content:"|00 00 00|"; depth:3; sid:1000105; rev:1;)
+
+# Data exfiltration
+alert http $HOME_NET any -> any any (msg:"Large HTTP POST"; flow:to_server,established; http_method; content:"POST"; dsize:>100000; sid:1000106; rev:1;)
+EOF
+```
+
+#### 6. Wazuh Agent (HIDS)
 ```bash
 # Install Wazuh
 curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | sudo apt-key add -
@@ -386,7 +409,7 @@ sudo systemctl enable wazuh-manager
 sudo systemctl start wazuh-manager
 ```
 
-### 6. Configure Log Collection
+### 7. Configure Log Collection
 
 #### Filebeat Configuration for Log Forwarding
 ```bash
@@ -439,7 +462,7 @@ sudo systemctl enable filebeat
 sudo systemctl start filebeat
 ```
 
-### 7. Create Kibana Dashboards
+### 8. Create Kibana Dashboards
 
 #### SOC Dashboard Creation Script
 ```bash
@@ -471,7 +494,7 @@ EOF
 chmod +x /opt/create-soc-dashboards.sh
 ```
 
-### 8. Security Monitoring Rules
+### 9. Security Monitoring Rules
 
 #### Custom Detection Rules
 ```bash
