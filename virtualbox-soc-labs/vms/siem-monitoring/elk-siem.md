@@ -561,8 +561,9 @@ echo "0 2 * * * /opt/elk-maintenance.sh >> /var/log/elk-maintenance.log 2>&1" | 
 ```
 ## Additional maintenance scripts
 
-`systemctl is-active elasticsearch` WILL GIVE THE OUTPUT "active" or inactive
-`suricata -T -c /etc/suricata/suricata.yaml -v` Output: Configuration provided was successfully loaded.Exiting. Bye!
+- check is the service active or inactive `systemctl is-active elasticsearch` WILL GIVE THE OUTPUT "active" or inactive
+- Test Suricata config `suricata -T -c /etc/suricata/suricata.yaml -v` Output: Configuration provided was successfully loaded.Exiting. Bye!
+- 
 
 ## Troubleshooting
 
