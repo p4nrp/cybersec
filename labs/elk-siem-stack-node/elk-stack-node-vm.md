@@ -40,13 +40,26 @@ sudo apt install -y elasticsearch
 
 # Configure Elasticsearch
 sudo tee /etc/elasticsearch/elasticsearch.yml > /dev/null <<EOF
+cluster.name: soc-lab-cluster
+node.name: elk-node-1
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
 network.host: 0.0.0.0
 http.port: 9200
+discovery.type: single-node
 EOF
+
+
+# Set JVM heap size
+sudo sed -i 's/-Xms1g/-Xms4g/' /etc/elasticsearch/jvm.options
+sudo sed -i 's/-Xmx1g/-Xmx4g/' /etc/elasticsearch/jvm.options
 
 # Enable and start Elasticsearch
 sudo systemctl enable elasticsearch
 sudo systemctl start elasticsearch
+
+#Check ELastic run on port 9200
+netstat -tuln | grep 9200
 
 # And check elasticsearch is running or not
 curl -X GET "localhost:9200"
@@ -54,10 +67,10 @@ or
 curl -X GET "192.168.1.114:9200"
 
 # Example  output
-root@ubuntu-server:/home/pan# curl -X GET "localhost:9200"
+root@ubuntu-server:/home/pan# curl -X GET "192.168.1.114:9200"
 {
-  "name" : "FqiZn1S",
-  "cluster_name" : "elasticsearch",
+  "name" : "elk-node-1",
+  "cluster_name" : "soc-lab-cluster",
   "cluster_uuid" : "sWF1wSQkTfqj4mkY8snkag",
   "version" : {
     "number" : "6.8.23",
@@ -72,7 +85,6 @@ root@ubuntu-server:/home/pan# curl -X GET "localhost:9200"
   },
   "tagline" : "You Know, for Search"
 }
-
 ```
 
 ### 3. Install Logstash
