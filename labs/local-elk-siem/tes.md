@@ -49,9 +49,9 @@ sudo systemctl enable elasticsearch
 sudo systemctl start elasticsearch
 
 # And check elasticsearch is running or not
-`curl -X GET "localhost:9200" `
+curl -X GET "localhost:9200"
 or
-`curl -X GET "192.168.1.114:9200"`
+curl -X GET "192.168.1.114:9200"
 ```
 
 ### 3. Install Logstash
