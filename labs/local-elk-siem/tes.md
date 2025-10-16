@@ -299,6 +299,10 @@ curl -XGET 'http://localhost:9200/logstash-*/_search?q=*&pretty'
   <img height="auto" width="auto" src="https://i.imgur.com/ynoN0c8.png">
 </p>
 
+### we’ve defined logstash-* as our index pattern. Now we can specify some settings before we create it. In the field of time filter field name choose @timestamp and create an index pattern
+<p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/C6503eN.png">
+</p>
 ## Troubleshooting
 
 ### Common Issues
