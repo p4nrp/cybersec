@@ -296,7 +296,7 @@ curl -XGET 'http://localhost:9200/logstash-*/_search?q=*&pretty'
 
 #### Create a Log Dashboard in Kibana
 <p align="center">
-  <img height="auto" width="auto" src="https://i.imgur.com/2FEy9ox.png">
+  <img height="auto" width="auto" src="https://i.imgur.com/ynoN0c8.png">
 </p>
 
 ## Troubleshooting
