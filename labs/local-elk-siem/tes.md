@@ -312,22 +312,4 @@ curl -XGET 'http://localhost:9200/logstash-*/_search?q=*&pretty'
 
 
 
-## Troubleshooting
-
-
-
-
-### Common Issues
-1. **Elasticsearch won't start**: Check JVM heap size and available RAM
-2. **Logstash parsing errors**: Check configuration syntax in `/etc/logstash/conf.d/`
-3. **Kibana connection issues**: Verify Elasticsearch is running and accessible
-4. **No logs appearing**: Check Filebeat/Winlogbeat configuration and network connectivity
-
-### Log Locations
-- **Elasticsearch**: `/var/log/elasticsearch/`
-- **Logstash**: `/var/log/logstash/`
-- **Kibana**: `/var/log/kibana/`
-- **Suricata**: `/var/log/suricata/`
-- **Wazuh**: `/var/ossec/logs/`
-
 
