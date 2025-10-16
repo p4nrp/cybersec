@@ -146,6 +146,22 @@ EOF
 systemctl start logstash
 systemctl enable logstash
 systemctl status logstash
+
+#Send .crt to remote linux host
+git clone https://github.com/p4nrp/cybersec.git
+cd cybersec/
+git add /home/pan/cybersec/logstash-forwarder.crt
+cp /etc/logstash/ssl/logstash-forwarder.crt /home/pan/cybersec
+git add /home/pan/cybersec/logstash-forwarder.crt
+
+git commit -m "Add SSL certificate files for ELK stack"
+[main 73e51e6] Add SSL certificate files for ELK stack
+ 1 file changed, 19 insertions(+)
+ create mode 100644 logstash-forwarder.crt
+root@ubuntu-server:/home/pan/cybersec# git push origin main
+Username for 'https://github.com': p4nrp
+Password for 'https://p4nrp@github.com':
+
 ```
 
 ### OPtional if the ip of server change just create again the ssl
