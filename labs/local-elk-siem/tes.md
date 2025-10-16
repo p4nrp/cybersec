@@ -81,124 +81,59 @@ root@ubuntu-server:/home/pan# curl -X GET "localhost:9200"
 # Install Logstash
 sudo apt install -y logstash
 
-# Create Logstash configuration
-sudo tee /etc/logstash/conf.d/soc-lab.conf > /dev/null <<EOF
-input {
-  beats {
-    port => 5044
-  }
-  
-  syslog {
-    port => 514
-  }
-  
-  tcp {
-    port => 5000
-    codec => json
+# Create openssl
+mkdir -p /etc/logstash/ssl
+cd /etc/logstash/
+openssl req -subj '/CN=elk-master/' -x509 -days 3650 -batch -nodes -newkey rsa:2048 -keyout ssl/logstash-forwarder.key -out ssl/logstash-forwarder.crt
+# Check folder openssl
+ls ssl/
+
+
+# Create Logstash configuration filebeat-input.conf
+sudo tee /etc/logstash/conf.d/filebeat-input.conf > /dev/null <<EOF
+input {  
+beats {
+   port => 5443
+    type => syslog
+    ssl => true
+    ssl_certificate => "/etc/logstash/ssl/logstash-forwarder.crt"
+    ssl_key => "/etc/logstash/ssl/logstash-forwarder.key"
   }
 }
+EOF
 
+# Create Logstash configuration syslog-filter.conf
+sudo tee /etc/logstash/conf.d/syslog-filter.conf > /dev/null <<EOF
 filter {
-  # Windows Event Log parsing
-  if [winlog] {
-    mutate {
-      add_field => { "log_type" => "windows" }
-    }
-    
-    if [winlog][event_id] == 4624 {
-      mutate {
-        add_field => { "event_category" => "logon_success" }
-      }
-    }
-    
-    if [winlog][event_id] == 4625 {
-      mutate {
-        add_field => { "event_category" => "logon_failure" }
-      }
-    }
-    
-    if [winlog][event_id] == 4648 {
-      mutate {
-        add_field => { "event_category" => "explicit_logon" }
-      }
-    }
-  }
-  
-  # Linux syslog parsing
   if [type] == "syslog" {
-    mutate {
-      add_field => { "log_type" => "linux" }
-    }
-    
     grok {
-      match => { "message" => "%{SYSLOGTIMESTAMP:timestamp} %{IPORHOST:host} %{DATA:program}(?:\[%{POSINT:pid}\])?: %{GREEDYDATA:message}" }
-      overwrite => [ "message" ]
+      match => { "message" => "%{SYSLOGTIMESTAMP:syslog_timestamp} %{SYSLOGHOST:syslog_hostname} %{DATA:syslog_program}(?:\[%{POSINT:syslog_pid}\])?: %{GREEDYDATA:syslog_message}" }
+      add_field => [ "received_at", "%{@timestamp}" ]
+      add_field => [ "received_from", "%{host}" ]
     }
-  }
-  
-  # Apache access log parsing
-  if [fields][log_type] == "apache_access" {
-    grok {
-      match => { "message" => "%{COMBINEDAPACHELOG}" }
-    }
-    
     date {
-      match => [ "timestamp", "dd/MMM/yyyy:HH:mm:ss Z" ]
-    }
-    
-    mutate {
-      convert => { "response" => "integer" }
-      convert => { "bytes" => "integer" }
-    }
-  }
-  
-  # SSH authentication parsing
-  if [program] == "sshd" {
-    if "Failed password" in [message] {
-      mutate {
-        add_field => { "event_category" => "ssh_failed_login" }
-      }
-      
-      grok {
-        match => { "message" => "Failed password for %{DATA:username} from %{IPORHOST:src_ip} port %{INT:src_port}" }
-      }
-    }
-    
-    if "Accepted password" in [message] {
-      mutate {
-        add_field => { "event_category" => "ssh_successful_login" }
-      }
-      
-      grok {
-        match => { "message" => "Accepted password for %{DATA:username} from %{IPORHOST:src_ip} port %{INT:src_port}" }
-      }
-    }
-  }
-  
-  # Add GeoIP information
-  if [src_ip] {
-    geoip {
-      source => "src_ip"
-      target => "geoip"
+      match => [ "syslog_timestamp", "MMM  d HH:mm:ss", "MMM dd HH:mm:ss" ]
     }
   }
 }
+EOF
 
+# Create Logstash configuration output-elasticsearch.conf
+sudo tee /etc/logstash/conf.d/output-elasticsearch.conf > /dev/null <<EOF
 output {
-  elasticsearch {
-    hosts => ["localhost:9200"]
-    index => "soc-lab-%{+YYYY.MM.dd}"
-  }
-  
-  stdout {
-    codec => rubydebug
+  elasticsearch { hosts => ["localhost:9200"]
+    hosts => "localhost:9200"
+    manage_template => false
+    index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
+    document_type => "%{[@metadata][type]}"
   }
 }
 EOF
 
 # Enable and start Logstash
-sudo systemctl enable logstash
-sudo systemctl start logstash
+systemctl start logstash
+systemctl enable logstash
+systemctl status logstash
 ```
 
 ### 4. Install Kibana
@@ -211,162 +146,53 @@ sudo apt install -y kibana
 sudo tee /etc/kibana/kibana.yml > /dev/null <<EOF
 server.port: 5601
 server.host: "0.0.0.0"
-server.name: "soc-lab-kibana"
 elasticsearch.hosts: ["http://localhost:9200"]
-kibana.index: ".kibana"
-logging.dest: /var/log/kibana/kibana.log
-logging.silent: false
-logging.quiet: false
-logging.verbose: false
 EOF
-
-# Create log directory
-sudo mkdir -p /var/log/kibana
-sudo chown kibana:kibana /var/log/kibana
 
 # Enable and start Kibana
-sudo systemctl enable kibana
-sudo systemctl start kibana
+systemctl enable kibana
+systemctl start kibana
+systemctl status kibana
 ```
 
-### 5. Install Additional Security Tools
+### 5. Install Nginx for Kibana
+```
+# Install nginx
+apt install nginx apache2-utils -y
 
-#### Suricata IDS
-```bash
-# Install Suricata
-sudo apt install -y suricata
+#Create virtualhost
+mkdir /etc/nginx/sites-available/kibana
 
-# Configure Suricata
-sudo tee /etc/suricata/suricata.yaml > /dev/null <<EOF
-%YAML 1.1
----
-vars:
-  address-groups:
-    HOME_NET: "[10.0.2.0/24]"
-    EXTERNAL_NET: "!$HOME_NET"
-    HTTP_SERVERS: "$HOME_NET"
-    SMTP_SERVERS: "$HOME_NET"
-    SQL_SERVERS: "$HOME_NET"
-    DNS_SERVERS: "$HOME_NET"
-    TELNET_SERVERS: "$HOME_NET"
-    AIM_SERVERS: "$EXTERNAL_NET"
-    DC_SERVERS: "$HOME_NET"
-    DNP3_SERVER: "$HOME_NET"
-    DNP3_CLIENT: "$HOME_NET"
-    MODBUS_CLIENT: "$HOME_NET"
-    MODBUS_SERVER: "$HOME_NET"
-    ENIP_CLIENT: "$HOME_NET"
-    ENIP_SERVER: "$HOME_NET"
-
-  port-groups:
-    HTTP_PORTS: "80"
-    SHELLCODE_PORTS: "!80"
-    ORACLE_PORTS: 1521
-    SSH_PORTS: 22
-    DNP3_PORTS: 20000
-    MODBUS_PORTS: 502
-    FILE_DATA_PORTS: "[$HTTP_PORTS,110,143]"
-    FTP_PORTS: 21
-    GENEVE_PORTS: 6081
-    VXLAN_PORTS: 4789
-    TEREDO_PORTS: 3544
-
-default-log-dir: /var/log/suricata/
-stats:
-  enabled: yes
-  interval: 8
-
-outputs:
-  - fast:
-      enabled: yes
-      filename: fast.log
-      append: yes
-  - eve-log:
-      enabled: yes
-      filetype: regular
-      filename: eve.json
-      types:
-        - alert
-        - http
-        - dns
-        - tls
-        - files
-        - smtp
-        - ssh
-        - stats
-        - flow
-
-af-packet:
-  - interface: enp0s3
-    cluster-id: 99
-    cluster-type: cluster_flow
-    defrag: yes
-
-pcap:
-  - interface: enp0s3
-
-app-layer:
-  protocols:
-    tls:
-      enabled: yes
-      detection-ports:
-        dp: 443
-    http:
-      enabled: yes
-    ssh:
-      enabled: yes
-    smtp:
-      enabled: yes
-    dns:
-      tcp:
-        enabled: yes
-        detection-ports:
-          dp: 53
-      udp:
-        enabled: yes
-        detection-ports:
-          dp: 53
-
-rule-files:
-  - suricata.rules
-  - /var/lib/suricata/rules/emerging-threats.rules
+#Config the host
+sudo tee /etc/nginx/sites-available/kibana > /dev/null <<EOF
+server {
+    listen 80;
+    server_name localhost;
+    auth_basic "Restricted Access";
+    auth_basic_user_file /etc/nginx/.kibana-user;
+    location / {
+        proxy_pass https://localhost:5601;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
 EOF
 
-# Update Suricata rules
-sudo suricata-update
+#Create authentication for kibana dashoard username and password set
+sudo htpasswd -c /etc/nginx/.kibana-user elastic
 
-# Enable and start Suricata
-sudo systemctl enable suricata
-sudo systemctl start suricata
-```
-
-#### Wazuh Agent (HIDS)
-```bash
-# Install Wazuh
-curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | sudo apt-key add -
-echo "deb https://packages.wazuh.com/4.x/apt/ stable main" | sudo tee /etc/apt/sources.list.d/wazuh.list
-
-sudo apt update
-sudo apt install -y wazuh-manager
-
-# Configure Wazuh
-sudo tee -a /var/ossec/etc/ossec.conf > /dev/null <<EOF
-  <integration>
-    <name>elastic</name>
-    <hook_url>http://localhost:9200</hook_url>
-    <level>3</level>
-    <alert_format>json</alert_format>
-  </integration>
-EOF
-
-# Enable and start Wazuh
-sudo systemctl enable wazuh-manager
-sudo systemctl start wazuh-manager
-```
+#Enable nginx
+ln -s /etc/nginx/sites-available/kibana /etc/nginx/sites-enabled/
+nginx -t
+systemctl enable nginx
+systemctl restart nginx
 
 ### 6. Configure Log Collection
 
-#### Filebeat Configuration for Log Forwarding
+#### Filebeat Configuration 
 ```bash
 # add repo
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
@@ -379,273 +205,99 @@ sudo apt install -y filebeat
 
 # Configure Filebeat
 sudo tee /etc/filebeat/filebeat.yml > /dev/null <<EOF
-filebeat.inputs:
-- type: log
-  enabled: true
-  paths:
-    - /var/log/suricata/eve.json
-  fields:
-    log_type: suricata
-  fields_under_root: true
-
-- type: log
-  enabled: true
-  paths:
-    - /var/log/auth.log
-  fields:
-    log_type: auth
-  fields_under_root: true
-
-- type: log
-  enabled: true
-  paths:
-    - /var/log/syslog
-  fields:
-    log_type: syslog
-  fields_under_root: true
-
-output.logstash:
-  hosts: ["localhost:5044"]
-
-processors:
-  - add_host_metadata:
-      when.not.contains.tags: forwarded
+enabled: true
+setup.kibana:
+  host: "192.168.1.114:5601"
+output.elasticsearch:
+  hosts: ["192.168.1.114:9200"]
+  username: "elastic"
+  pasword: "admin"
 EOF
 
 # Enable and start Filebeat
-sudo systemctl enable filebeat
-sudo systemctl start filebeat
+sudo filebeat setup
+sudo service filebeat start
+sudo service filebeat status
+
+#Copy SSL cert logstash
+cp /etc/logstash/ssl/logstash-forwarder.crt /etc/filebeat/
+sudo service filebeat restart
+
+#Check Kibana is running or not
+https://192.168.1.114:5601/
 ```
 
-### 7. Create Kibana Dashboards
+### 7. Routing Linux Logs to Elasticsearch
 
-#### SOC Dashboard Creation Script
+#### Routing From Logstash To Elasticsearch
 ```bash
-# Create dashboard import script
-sudo tee /opt/create-soc-dashboards.sh > /dev/null <<'EOF'
-#!/bin/bash
-
-# Wait for Kibana to be ready
-while ! curl -s http://localhost:5601/api/status > /dev/null; do
-  echo "Waiting for Kibana to start..."
-  sleep 10
-done
-
-# Create index patterns
-curl -X POST "localhost:5601/api/saved_objects/index-pattern/soc-lab-*" \
-  -H "Content-Type: application/json" \
-  -H "kbn-xsrf: true" \
-  -d '{
-    "attributes": {
-      "title": "soc-lab-*",
-      "timeFieldName": "@timestamp"
+# Routing From Logstash To Elasticsearch
+sudo tee /etc/logstash/conf.d/logstash.conf > /dev/null <<EOF
+input {
+  udp {
+    host => "127.0.0.1"
+    port => 10514
+    codec => "json"
+    type => "rsyslog"
+  }
+} 
+# The Filter pipeline stays empty here, no formatting is done.
+filter { } 
+# Every single log will be forwarded to ElasticSearch. If you are using another port, you should specify it here.
+output {
+  if [type] == "rsyslog" {
+    elasticsearch {
+      hosts => [ "127.0.0.1:9200" ]
     }
-  }'
-
-# Import SOC dashboards (would contain actual dashboard JSON)
-echo "SOC dashboards created successfully!"
+  }
+}
 EOF
 
-chmod +x /opt/create-soc-dashboards.sh
+#Restart logstash
+systemctl restart logstash
+
+#check the config is allready run on 127.0.0.1 on 10514
+netstat -na | grep 10514
 ```
+### 8. Routing from rsyslog to Logstash
 
-### 8. Security Monitoring Rules
-
-#### Custom Detection Rules
-```bash
-# Create custom Suricata rules
-sudo tee /etc/suricata/rules/soc-lab-custom.rules > /dev/null <<'EOF'
-# Brute force detection
-alert tcp any any -> $HOME_NET 22 (msg:"SSH Brute Force Attempt"; flow:to_server,established; content:"SSH"; threshold:type both,track by_src,count 5,seconds 60; sid:1000001; rev:1;)
-
-# Web application attacks
-alert http any any -> $HOME_NET any (msg:"SQL Injection Attempt"; flow:to_server,established; content:"union select"; nocase; sid:1000002; rev:1;)
-alert http any any -> $HOME_NET any (msg:"XSS Attempt"; flow:to_server,established; content:"<script"; nocase; sid:1000003; rev:1;)
-
-# Suspicious file uploads
-alert http any any -> $HOME_NET any (msg:"Suspicious File Upload"; flow:to_server,established; content:"Content-Type: application/octet-stream"; sid:1000004; rev:1;)
-
-# Command injection
-alert http any any -> $HOME_NET any (msg:"Command Injection Attempt"; flow:to_server,established; pcre:"/(\||;|&|`|\$\()/"; sid:1000005; rev:1;)
+#### Routing from rsyslog to Logstash
+```
+#Rsyslog has the capacity to transform logs using templates in order to forward logs in rsylog, head over to the directory /etc/rsylog.d and create a new file named 70-output.conf
+sudo tee /etc/rsyslog.d/70-output.conf > /dev/null <<EOF
+# This line sends all lines to defined IP address at port 10514
+# using the json-template format.
+*.*                         @127.0.0.1:10514;json-template
 EOF
-```
 
-### 9. LAST THING
-
-### SIEM System (10.0.2.100)
-```
-# Configure log collection from all systems
-# Rsyslog configuration for centralized logging
-cat >> /etc/rsyslog.conf << 'EOF'
-
-# Enable UDP syslog reception
-module(load="imudp")
-input(type="imudp" port="514")
-
-# Enable TCP syslog reception
-module(load="imtcp")
-input(type="imtcp" port="514")
-
-# Log separation by host
-$template DynamicFile,"/var/log/remote-hosts/%HOSTNAME%/%programname%.log"
-*.* ?DynamicFile
-& stop
+#log forwarding, create a 01-json-template.conf file in the same folder
+sudo tee /etc/rsyslog.d/01-json-template.conf > /dev/null <<EOF
+template(name="json-template"
+  type="list") {
+    constant(value="{")
+      constant(value="\"@timestamp\":\"")     property(name="timereported" dateFormat="rfc3339")
+      constant(value="\",\"@version\":\"1")
+      constant(value="\",\"message\":\"")     property(name="msg" format="json")
+      constant(value="\",\"sysloghost\":\"")  property(name="hostname")
+      constant(value="\",\"severity\":\"")    property(name="syslogseverity-text")
+      constant(value="\",\"facility\":\"")    property(name="syslogfacility-text")
+      constant(value="\",\"programname\":\"") property(name="programname")
+      constant(value="\",\"procid\":\"")      property(name="procid")
+    constant(value="\"}\n")
+}
 EOF
-```
-```
+
+#Restart rsyslog service and verify that logs are correctly forwarded into Elasticsearch.
 systemctl restart rsyslog
-```
-# Configure Suricata for network monitoring
-```
-cat > /etc/suricata/suricata.yaml << 'EOF'
-vars:
-  address-groups:
-    HOME_NET: "[10.0.2.0/24]"
-    EXTERNAL_NET: "!$HOME_NET"
-    
-af-packet:
-  - interface: enp0s3
-    cluster-id: 99
-    cluster-type: cluster_flow
-    defrag: yes
-
-outputs:
-  - eve-log:
-      enabled: yes
-      filetype: regular
-      filename: eve.json
-      types:
-        - alert
-        - http
-        - dns
-        - tls
-        - files
-        - smtp
-        - ssh
-        - flow
-EOF
+curl -XGET 'http://localhost:9200/logstash-*/_search?q=*&pretty'
 ```
 
-### Suricata Rules for Lab Environment
+### 9. Create a Log Dashboard in Kibana
 
-# Custom rules for lab detection
-```
-cat > /etc/suricata/rules/soc-lab.rules << 'EOF'
-# Internal network scanning
-alert icmp $HOME_NET any -> $HOME_NET any (msg:"Internal Network Scan"; itype:8; threshold:type both,track by_src,count 10,seconds 60; sid:1000100; rev:1;)
-
-# Brute force attacks
-alert tcp any any -> $HOME_NET 22 (msg:"SSH Brute Force"; flow:to_server,established; content:"SSH"; threshold:type both,track by_src,count 5,seconds 60; sid:1000101; rev:1;)
-alert tcp any any -> $HOME_NET 3389 (msg:"RDP Brute Force"; flow:to_server,established; threshold:type both,track by_src,count 5,seconds 60; sid:1000102; rev:1;)
-
-# Web application attacks
-alert http any any -> $HOME_NET any (msg:"SQL Injection Attempt"; flow:to_server,established; content:"union select"; nocase; sid:1000103; rev:1;)
-alert http any any -> $HOME_NET any (msg:"XSS Attempt"; flow:to_server,established; content:"<script"; nocase; sid:1000104; rev:1;)
-
-# Malware communication
-alert tcp $HOME_NET any -> any 4444 (msg:"Meterpreter Communication"; flow:to_server,established; content:"|00 00 00|"; depth:3; sid:1000105; rev:1;)
-
-# Data exfiltration
-alert http $HOME_NET any -> any any (msg:"Large HTTP POST"; flow:to_server,established; http_method; content:"POST"; dsize:>100000; sid:1000106; rev:1;)
-EOF
-```
-
-## Firewall Configuration
-### Ubuntu Systems (iptables)
-# Basic firewall rules for vulnerable systems
-# Allow necessary services but log connections
-
-# SIEM system - allow log collection
-```
-iptables -A INPUT -p tcp --dport 514 -j ACCEPT
-iptables -A INPUT -p udp --dport 514 -j ACCEPT
-iptables -A INPUT -p tcp --dport 5601 -j ACCEPT  # Kibana
-iptables -A INPUT -p tcp --dport 9200 -j ACCEPT  # Elasticsearch
-```
-# Vulnerable Linux system - allow attack vectors
-```
-iptables -A INPUT -p tcp --dport 22 -j ACCEPT   # SSH
-iptables -A INPUT -p tcp --dport 80 -j ACCEPT   # HTTP
-iptables -A INPUT -p tcp --dport 21 -j ACCEPT   # FTP
-iptables -A INPUT -p tcp --dport 23 -j ACCEPT   # Telnet
-iptables -A INPUT -p tcp --dport 3306 -j ACCEPT # MySQL
-```
-# Log all connections for analysis
-```
-iptables -A INPUT -j LOG --log-prefix "IPTABLES-INPUT: "
-iptables -A OUTPUT -j LOG --log-prefix "IPTABLES-OUTPUT: "
-```
-# Save rules
-```
-iptables-save > /etc/iptables/rules.v4
-```
-## Service Status and Ports
-
-| Service | Port | Status Check |
-|---------|------|--------------|
-| Elasticsearch | 9200 | `curl http://localhost:9200` |
-| Kibana | 5601 | `curl http://localhost:5601` |
-| Logstash | 5044 | `netstat -tlnp | grep 5044` |
-| Suricata | - | `sudo systemctl status suricata` |
-| Wazuh | 1514 | `sudo systemctl status wazuh-manager` |
-
-## Default Access
-
-- **Kibana Web Interface**: http://10.0.2.100:5601
-- **Elasticsearch API**: http://10.0.2.100:9200
-- **Log Collection**: Port 514 (Syslog), Port 5044 (Beats)
-
-## Pre-configured Dashboards
-
-1. **Security Overview Dashboard**
-   - Failed login attempts
-   - Top attacking IPs
-   - Service usage statistics
-   - Alert timeline
-
-2. **Network Security Dashboard**
-   - Suricata alerts
-   - Network traffic analysis
-   - Protocol distribution
-   - Suspicious connections
-
-3. **System Monitoring Dashboard**
-   - System resource usage
-   - Service status
-   - Log volume trends
-   - Error rates
-
-## Log Sources Configured
-
-- **Windows Event Logs** (via Winlogbeat from Windows VMs)
-- **Linux System Logs** (via Rsyslog and Filebeat)
-- **Web Server Logs** (Apache/Nginx access and error logs)
-- **Network Traffic** (via Suricata)
-- **Security Events** (via Wazuh HIDS)
-
-## Maintenance Scripts
-
-```bash
-# Create maintenance script
-sudo tee /opt/elk-maintenance.sh > /dev/null <<'EOF'
-#!/bin/bash
-
-# Clean old indices (keep 30 days)
-curl -X DELETE "localhost:9200/soc-lab-$(date -d '30 days ago' +%Y.%m.%d)"
-
-# Restart services if needed
-systemctl is-active --quiet elasticsearch || systemctl restart elasticsearch
-systemctl is-active --quiet logstash || systemctl restart logstash
-systemctl is-active --quiet kibana || systemctl restart kibana
-
-echo "ELK maintenance completed: $(date)"
-EOF
-
-chmod +x /opt/elk-maintenance.sh
-
-# Add to crontab
-echo "0 2 * * * /opt/elk-maintenance.sh >> /var/log/elk-maintenance.log 2>&1" | sudo crontab -
-```
+#### Create a Log Dashboard in Kibana
+<p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/2FEy9ox.png">
+</p>
 
 ## Troubleshooting
 
