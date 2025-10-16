@@ -148,6 +148,38 @@ systemctl enable logstash
 systemctl status logstash
 ```
 
+### OPtional if the ip of server change just create again the ssl
+```
+#Create the file name openssl.cnf
+sudo tee /etc/logstash/openssl.cnf > /dev/null <<EOF
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+req_extensions = req_ext
+distinguished_name = dn
+
+[dn]
+CN = elk-master
+
+[req_ext]
+subjectAltName = @alt_names
+
+[alt_names]
+IP.1 = 10.13.53.245
+EOF
+
+#And replace the .key .crt file
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
+-keyout ssl/logstash-forwarder.key -out ssl/logstash-forwarder.crt \
+-config openssl.cnf -extensions req_ext
+
+#Restart logstash
+systemctl start logstash
+systemctl enable logstash
+systemctl status logstash
+```
+
 ### 4. Install Kibana
 
 ```bash
