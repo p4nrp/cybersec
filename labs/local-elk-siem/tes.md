@@ -52,6 +52,27 @@ sudo systemctl start elasticsearch
 curl -X GET "localhost:9200"
 or
 curl -X GET "192.168.1.114:9200"
+
+# Example  output
+root@ubuntu-server:/home/pan# curl -X GET "localhost:9200"
+{
+  "name" : "FqiZn1S",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "sWF1wSQkTfqj4mkY8snkag",
+  "version" : {
+    "number" : "6.8.23",
+    "build_flavor" : "default",
+    "build_type" : "deb",
+    "build_hash" : "4f67856",
+    "build_date" : "2022-01-06T21:30:50.087716Z",
+    "build_snapshot" : false,
+    "lucene_version" : "7.7.3",
+    "minimum_wire_compatibility_version" : "5.6.0",
+    "minimum_index_compatibility_version" : "5.0.0"
+  },
+  "tagline" : "You Know, for Search"
+}
+
 ```
 
 ### 3. Install Logstash
