@@ -303,7 +303,19 @@ curl -XGET 'http://localhost:9200/logstash-*/_search?q=*&pretty'
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/C6503eN.png">
 </p>
+
+
+### Monitoring example SSH entries
+<p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/CUdO0bU.png">
+</p>
+
+
+
 ## Troubleshooting
+
+
+
 
 ### Common Issues
 1. **Elasticsearch won't start**: Check JVM heap size and available RAM
