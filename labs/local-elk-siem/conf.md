@@ -42,6 +42,7 @@ sudo apt install -y elasticsearch
 sudo tee /etc/elasticsearch/elasticsearch.yml > /dev/null <<EOF
 network.host: 0.0.0.0
 http.port: 9200
+discovery.type: single-node
 EOF
 
 # Enable and start Elasticsearch
