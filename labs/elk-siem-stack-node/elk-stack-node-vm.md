@@ -150,7 +150,6 @@ systemctl status logstash
 #Send .crt to remote linux host
 git clone https://github.com/p4nrp/cybersec.git
 cd cybersec/
-git add /home/pan/cybersec/logstash-forwarder.crt
 cp /etc/logstash/ssl/logstash-forwarder.crt /home/pan/cybersec
 git add /home/pan/cybersec/logstash-forwarder.crt
 
