@@ -242,7 +242,7 @@ ln -s /etc/nginx/sites-available/kibana /etc/nginx/sites-enabled/
 nginx -t
 systemctl enable nginx
 systemctl restart nginx
-
+```
 ### 6. Configure Log Collection
 
 #### Filebeat Configuration 
