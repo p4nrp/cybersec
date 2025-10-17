@@ -216,9 +216,6 @@ systemctl status kibana
 # Install nginx
 apt install nginx apache2-utils -y
 
-#Create virtualhost
-mkdir /etc/nginx/sites-available/kibana
-
 #Config the host
 sudo tee /etc/nginx/sites-available/kibana > /dev/null <<EOF
 server {
