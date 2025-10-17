@@ -104,7 +104,6 @@ ls ssl/
 # Create Logstash configuration filebeat-input.conf
 sudo tee /etc/logstash/conf.d/filebeat-input.conf > /dev/null <<EOF
 input {  
-beats {
    port => 5443
     type => syslog
     ssl => true
@@ -152,13 +151,11 @@ git clone https://github.com/p4nrp/cybersec.git
 cd cybersec/
 cp /etc/logstash/ssl/logstash-forwarder.crt /home/pan/cybersec
 git add /home/pan/cybersec/logstash-forwarder.crt
-
+git config --global user.email @mail
+git config --global user.name asd
 git commit -m "Add SSL certificate files for ELK stack"
-[main 73e51e6] Add SSL certificate files for ELK stack
- 1 file changed, 19 insertions(+)
- create mode 100644 logstash-forwarder.crt
-root@ubuntu-server:/home/pan/cybersec# git push origin main
-Username for 'https://github.com': p4nrp
+git push origin main
+Username for 'https://github.com': 
 Password for 'https://p4nrp@github.com':
 
 ```
