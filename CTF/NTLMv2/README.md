@@ -8,3 +8,7 @@ Save it the format to .txt file and run the command `hashcat -a0 -m5600 smbhash.
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/DzL2oEf.png">
 </p>
+the password is "rootbeer" `john.doe::catcorp.local:1944952f5b845db1:5c336c6b69fd2cf7b64eb0bde3102162:010100000000000xxxxxxx:rootbeer`
+<p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/KVHbsBt.png">
+</p>
