@@ -19,3 +19,6 @@ the password is "rootbeer" `john.doe::catcorp.local:1944952f5b845db1:5c336c6b69f
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/KVHbsBt.png">
 </p>
+
+# The answer is 
+# RM{john.doe@catcorp.local:rootbeer}
