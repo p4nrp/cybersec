@@ -13,7 +13,7 @@
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/5SptLWJ.png">
 </p>
-2. Get the User,Domain,HMAC-MD5, and NTLMv2Response NOTE! `HMAC-MD5 alias is `5c336c6b69fd2cf7b64eb0bde3102162``
+2. Get the User,Domain,HMAC-MD5, and NTLMv2Response NOTE! `HMAC-MD5 alias is `5c336c6b69fd2cf7b64eb0bde3102162`
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/ptqopr0.png">
 </p>
