@@ -9,7 +9,7 @@
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/H6FzN1J.png">
 </p>
-## Get the Server Challenge
+### Get the Server Challenge
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/5SptLWJ.png">
 </p>
