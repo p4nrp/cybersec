@@ -6,13 +6,22 @@
 </p>
 
 #### Wireshark filter 
-<p align="center">
+1. <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/H6FzN1J.png">
-</p>
-1. Get the Server Challenge
-<p align="center">
+  </p>
+
+2. Get the Server Challenge
+   <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/5SptLWJ.png">
+ </p>
+ 
+3. Get the User,Domain,HMAC-MD5, and NTLMv2Response NOTE! `HMAC-MD5 alias is 5c336c6b69fd2cf7b64eb0bde3102162`
+   Change value `L1_ENDPOINT_HTTP` and `L1_ENDPOINT_WS` with your HTTPS And WSS From Alchemy
+<p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/ptqopr0.png">
 </p>
+ 
+ 
 2. Get the User,Domain,HMAC-MD5, and NTLMv2Response NOTE! `HMAC-MD5 alias is 5c336c6b69fd2cf7b64eb0bde3102162`
    Change value `L1_ENDPOINT_HTTP` and `L1_ENDPOINT_WS` with your HTTPS And WSS From Alchemy
 <p align="center">
