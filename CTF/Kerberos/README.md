@@ -20,12 +20,14 @@
  </p>
 
  
-3. Assemble it all you got before like this `$krb5pa$18$CNameString$kerberos.realm$kerberos.padata-value.cipher` we use `(Kerberos 5, etype 18, Pre-Auth(Hash-Mode 19900))` change it to `$krb5pa$18$william.dupond$CATCORP.LOCAL$fc8bbe22b2c967b222ed73dd7616ea71b2ae0c1b0c3688bfff7fecffdebd4054471350cb6e36d3b55ba3420be6c0210b2d978d3f51d1eb4f`
-<p align="center">
-  <img height="auto" width="auto" src="https://i.imgur.com/ptqopr0.png">
+3. Assemble it all you got before like this `$krb5pa$18$CNameString$kerberos.realm$kerberos.padata-value.cipher` we use `(Kerberos 5, etype 18, Pre-Auth(Hash-Mode 19900))` change it to  `$krb5pa$18$william.dupond$CATCORP.LOCAL$fc8bbe22b2c967b222ed73dd7616ea71b2ae0c1b0c3688bfff7fecffdebd4054471350cb6e36d3b55ba3420be6c0210b2d978d3f51d1eb4f`
+  <p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/IWdFAi8.png">
 </p>
- 
-
+  3.1. Save it to .txt 
+  <p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/xP3RXmX.png">
+</p>
 
 
 ### Assemble Format
