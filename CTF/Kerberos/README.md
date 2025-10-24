@@ -26,13 +26,13 @@
    <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/IWdFAi8.png">
 </p>
-
+the password is "kittycat12"
   <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/xP3RXmX.png">
 </p>
 
 
-the password is "rootbeer" `john.doe::catcorp.local:1944952f5b845db1:5c336c6b69fd2cf7b64eb0bde3102162:010100000000000xxxxxxx:rootbeer`
+the password is "kittycat12" `john.doe::catcorp.local:1944952f5b845db1:5c336c6b69fd2cf7b64eb0bde3102162:010100000000000xxxxxxx:rootbeer`
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/KVHbsBt.png">
 </p>
