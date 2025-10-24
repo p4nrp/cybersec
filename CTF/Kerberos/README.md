@@ -12,7 +12,7 @@
   </p>
 
 
-2. we need to get a : `CNameString` `realm` `padata-value.cipher` use it for hashcat kerberos 5 etype-18 (Pre-Auth) template.
+2. we need to get a : `CNameString` `realm` `padata-value.cipher` use it for hashcat Kerberos 5 etype-18 (Pre-Auth) template.
 
    2.1. You can check hashcat wiki hashes template [HERE](https://hashcat.net/wiki/doku.php?id=example_hashes)
    <p align="center">
