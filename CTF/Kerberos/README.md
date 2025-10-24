@@ -2,13 +2,16 @@
 
 ### Kerberos - Challenge
 <p align="center">
-  <img height="auto" width="auto" src="https://i.imgur.com/j38z1eC.png">
+  <img height="auto" width="auto" src="https://i.imgur.com/HkRws1h.png">
 </p>
 
+
 #### Wireshark filter 
-1. <p align="center">
-  <img height="auto" width="auto" src="https://i.imgur.com/H6FzN1J.png">
+1.
+  <p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/hCRg5DP.png">
   </p>
+
 
 2. Get the Server Challenge
    <p align="center">
