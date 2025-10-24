@@ -31,8 +31,6 @@ the password is "kittycat12"
   <img height="auto" width="auto" src="https://i.imgur.com/xP3RXmX.png">
 </p>
 
-# The answer is 
-# RM{john.doe@catcorp.local:rootbeer}
 
 # Challenge link 
 # https://www.root-me.org/en/Challenges/Network/NTLM-Authentication#pagination_dernieres_validations
