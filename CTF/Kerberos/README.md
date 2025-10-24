@@ -1,5 +1,4 @@
 
-
 ### Kerberos - Authentication Challenges
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/HkRws1h.png">
@@ -13,7 +12,7 @@
   </p>
 
 
-2. Get the Server Challenge
+2. we need to get a  : `CNameString` `realm` `padata-value.cipher` 
    <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/5SptLWJ.png">
  </p>
