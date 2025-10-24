@@ -12,10 +12,12 @@
   </p>
 
 
-2. we need to get a  : `CNameString` `realm` `padata-value.cipher` 
+2. we need to get a : `CNameString` `realm` `padata-value.cipher` use it for hashcat kerberos 5 etype-18 (AES encryption standard) template
+  2.1. You can check hashcat wiki hashes template [HERE](https://hashcat.net/wiki/doku.php?id=example_hashes)
    <p align="center">
-  <img height="auto" width="auto" src="https://i.imgur.com/5SptLWJ.png">
+  <img height="auto" width="auto" src="https://i.imgur.com/HJPdAYS.png">
  </p>
+
  
 3.1 Get the User,Domain,HMAC-MD5, and NTLMv2Response NOTE! `HMAC-MD5 alias is NTProofStr` the value is : `5c336c6b69fd2cf7b64eb0bde3102162`
 
