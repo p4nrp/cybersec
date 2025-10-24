@@ -1,6 +1,6 @@
 
 
-### Kerberos - Challenge
+### Kerberos - Authentication Challenges
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/HkRws1h.png">
 </p>
