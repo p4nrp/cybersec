@@ -32,6 +32,6 @@ the password is "kittycat12"
 </p>
 
 
-# Challenge link 
-# https://www.root-me.org/en/Challenges/Network/NTLM-Authentication#pagination_dernieres_validations
+# [Challenge Link](https://www.root-me.org/en/Challenges/Network/Kerberos-Authentication?lang=en)
+
 
