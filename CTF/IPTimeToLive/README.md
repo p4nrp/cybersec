@@ -26,5 +26,5 @@
    </p>
 
 ### 3. Conclusion
-### the password for user enable is `6sK0_enable`
+### The First TTL is `13`
 
