@@ -119,7 +119,7 @@ Cracking: Instantly reversible with tools
    >
    > - Example command
    >
-   This the output we got  
+   **This the output we got :**
    - **admin  :** `6sK0_admin`
    - **hub    :** `6sK0_hub`
    - **guest  :** `6sK0_guest`
