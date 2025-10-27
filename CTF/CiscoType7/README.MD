@@ -115,6 +115,7 @@ Cracking: Instantly reversible with tools
 >
 >   - we can use this repo to decrypt it `https://github.com/derek-shnosh/c7_decrypt`
 >       - sds
+asdasd
 3. Define name apps
 4. Network Use Sepolia
 5. `CREATE APP`
