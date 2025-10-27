@@ -23,9 +23,9 @@
 
    `openssl passwd -1 -salt p8Y6 6sK0_enable`
 
-<p align="left">
-<img height="auto" width="auto" src="https://i.imgur.com/0cDIHYm.png">
-</p>
+   <p align="left">
+   <img height="auto" width="auto" src="https://i.imgur.com/0cDIHYm.png">
+   </p>
 
 ### 3. Conclusion
 ### the password for user enable is `6sK0_enable`
