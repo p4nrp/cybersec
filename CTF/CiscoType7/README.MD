@@ -134,6 +134,9 @@ Cracking: Instantly reversible with tools
 <p align="center">
 <img height="auto" width="auto" src="https://i.imgur.com/0cDIHYm.png">
 </p>
+<p align="center">
+<img height="auto" width="auto" src="https://i.imgur.com/0cDIHYm.png">
+</p>
 
 ### 3. Conclusion
 ### the password for user enable is `6sK0_enable`
