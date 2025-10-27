@@ -14,7 +14,7 @@ install a few prerequisite packages which let apt use packages over HTTPS:
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/DB4IQDJ.png">
 </p>
-https://i.imgur.com/DB4IQDJ.png
+
 
 lets analyze the log given
 ```
