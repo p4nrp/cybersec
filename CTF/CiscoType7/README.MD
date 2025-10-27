@@ -119,10 +119,10 @@ Cracking: Instantly reversible with tools
    >
    > - Example command
    >
- This the output we got `` 
-   - **Let's try for admin first** `USDSMDKNSDKSN`
-   - **Let's try for admin first**
-   
+ This the output we got  
+   - **admin  :** `6sK0_admin`
+   - **hub    :** `6sK0_hub`
+   - **guest  :** `6sK0_guest`
 3. Define name apps
 4. Network Use Sepolia
 5. `CREATE APP`
