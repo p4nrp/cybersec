@@ -19,7 +19,7 @@
    <img height="auto" width="auto" src="https://i.imgur.com/7GKX0Wm.png">
    </p>
 
-3. Lets try to hashing to md-5, with a hint we got, such as `6sK0_` on the first word, and use salt of encrypted enable password `p8Y6`
+3. The first successful ICMP connection is on packet number `71` 
 
    `openssl passwd -1 -salt p8Y6 6sK0_enable`
 
