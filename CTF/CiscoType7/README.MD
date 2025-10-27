@@ -123,7 +123,14 @@ Cracking: Instantly reversible with tools
    - **admin  :** `6sK0_admin`
    - **hub    :** `6sK0_hub`
    - **guest  :** `6sK0_guest`
-3. Define name apps
+   >
+   > we got a hint, the every password is using `6sK0_` on the first word
+   >
+3. Lets try to hashing to md-5, with a hint we got, such as `6sK0_` on the first word, and use salt of encrypted enable password `p8Y6`
+   <p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/0cDIHYm.png">
+</p>
+
 4. Network Use Sepolia
 5. `CREATE APP`
 6. Navigate to apps already created `VIEW DETAILS`
