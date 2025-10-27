@@ -1,10 +1,10 @@
 # Cisco Type 7 Challenge
 
-* [Installation Docker](https://github.com/p4nrp/testnet/blob/main/taiko.md#1-Installation-Docker)
-* [Alchemy Setting](https://github.com/p4nrp/testnet/blob/main/taiko.md#2-Alchemy-Setting)
-* [Setup And Run Node](https://github.com/p4nrp/testnet/blob/main/taiko.md#3-Setup-And-Run-Node)
-* [Monitor Node](https://github.com/p4nrp/testnet/blob/main/taiko.md#4-Monitor-Node)
-* [Usefull Command](https://github.com/p4nrp/testnet/blob/main/taiko.md#usefull-commands)
+* [.](https://github.com/p4nrp/testnet/blob/main/taiko.md#1-Installation-Docker)
+* [.](https://github.com/p4nrp/testnet/blob/main/taiko.md#2-Alchemy-Setting)
+* [.](https://github.com/p4nrp/testnet/blob/main/taiko.md#3-Setup-And-Run-Node)
+* [.](https://github.com/p4nrp/testnet/blob/main/taiko.md#4-Monitor-Node)
+* [.](https://github.com/p4nrp/testnet/blob/main/taiko.md#usefull-commands)
 
 ### 1. Installation Docker
 
