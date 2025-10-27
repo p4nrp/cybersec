@@ -111,8 +111,9 @@ Cracking: Instantly reversible with tools
     As we know here this is a `md5crypt, MD5 (Unix), Cisco-IOS $1$ (MD5) 2` and have an salt `p8Y6`
 
 2. Lets try to decrypt cisco type 7.
-   * we can use this repo to decrypt it `https://github.com/derek-shnosh/c7_decrypt`
-     - we can use this repo to decrypt it `https://github.com/derek-shnosh/c7_decrypt`
+> we can use this repo to decrypt it `https://github.com/derek-shnosh/c7_decrypt`
+>
+   - we can use this repo to decrypt it `https://github.com/derek-shnosh/c7_decrypt`
        - sds
 3. Define name apps
 4. Network Use Sepolia
