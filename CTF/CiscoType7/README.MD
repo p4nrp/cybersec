@@ -117,7 +117,16 @@ Cracking: Instantly reversible with tools
 >       - sds
 > 
    - USDSMDKNSDKSN
-    
+2. Lets try to decrypt cisco type 7.
+   > We can use this repo to decrypt it: [c7_decrypt](https://github.com/derek-shnosh/c7_decrypt)
+   >
+   > ```bash
+   > https://github.com/derek-shnosh/c7_decrypt
+   > ```
+   >
+   > - Additional notes here
+   
+   - **Encrypted string:** `USDSMDKNSDKSN`
 3. Define name apps
 4. Network Use Sepolia
 5. `CREATE APP`
