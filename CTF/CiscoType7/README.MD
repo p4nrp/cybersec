@@ -118,6 +118,7 @@ Cracking: Instantly reversible with tools
    > ```
    >
    > - Example command
+   >
  This the output we got `` 
    - **Let's try for admin first** `USDSMDKNSDKSN`
    - **Let's try for admin first**
