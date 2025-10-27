@@ -103,25 +103,20 @@ Cracking: Instantly reversible with tools
 * username admin privilege 15 password 7 10181A325528130F010D24 (cisco type-7)
 * username guest password 7 124F163C42340B112F3830 (cisco type-7)
 
-add the Docker repository to APT sources:
-```
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-```
+### 2. Try cracking
+1. Try first one by one
+    > blockquote enable secret 5 $1$p8Y6$MCdRLBzuGlfOs9S.hXOp0. (md-5) `Try cracking using hashcat first, is it failed, should we gather another hint again`
+    > blockquote username hub password 7 025017705B3907344E (cisco type-7)
+    > blockquote username admin privilege 15 password 7 10181A325528130F010D24 (cisco type-7)
+    > blockquote username guest password 7 124F163C42340B112F3830 (cisco type-7)
 
-Update your existing list of packages again for the addition to be recognized:
-```
-sudo apt update
-```
-
-Make sure you are about to install from the Docker repo instead of the default Ubuntu repo:
-```
-apt-cache policy docker-ce
-```
-
-Install Docker
-```
-sudo apt install docker-ce
-```
+2. Select `+CREATE NEW APP`
+3. Define name apps
+4. Network Use Sepolia
+5. `CREATE APP`
+6. Navigate to apps already created `VIEW DETAILS`
+7. Select `VIEW KEY`
+8. Copy HTTP & WSS
 
 ### 2. Alchemy Setting
 1. Create [AlchemyAccount](https://auth.alchemy.com/signup?redirectUrl=https%3A%2F%2Fdashboard.alchemy.com%2Fsignup%2F%3Freferrer_origin%3DDIRECT)
