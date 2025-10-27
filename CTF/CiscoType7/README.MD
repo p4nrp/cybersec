@@ -1,8 +1,8 @@
+ Cisco Type 7 Challenge
 ### 1. Cisco Type 7 Challenge
-
+<p align="center">
 <p align="left">
   <img height="auto" width="auto" src="https://i.imgur.com/DB4IQDJ.png">
-  <img height="auto" width="auto" src="https://i.imgur.com/xG1eKVt.png">
 </p>
 
 
@@ -120,15 +120,9 @@ Cracking: Instantly reversible with tools
 
    `openssl passwd -1 -salt p8Y6 6sK0_enable`
 
-### 2. Analyze the traffic ICMP Exchange on Wireshark
-1. The instruction is to find "the TTL used to reach the targeted host in this ICMP exchange."
 <p align="left">
 <img height="auto" width="auto" src="https://i.imgur.com/0cDIHYm.png">
 </p>
-  <img height="auto" width="auto" src="https://i.imgur.com/gkigK6w.png">
-</p>   
 
-2. As we see the screenshot of number one is, the first TTL can have a successfull connection is just on packet number `71 to 76`
-3. And the first 
 ### 3. Conclusion
 ### the password for user enable is `6sK0_enable`
