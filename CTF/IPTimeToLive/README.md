@@ -17,8 +17,8 @@
 2. As we see on screenshot number one before, the packet ICMP and have TTL connection success is just on packet number `71 to 76`
    <p align="center">
    <p align="left">
-  <img height="auto" width="auto" src="https://i.imgur.com/7GKX0Wm.png">
-  </p>
+   <img height="auto" width="auto" src="https://i.imgur.com/7GKX0Wm.png">
+   </p>
 
 3. Lets try to hashing to md-5, with a hint we got, such as `6sK0_` on the first word, and use salt of encrypted enable password `p8Y6`
 
