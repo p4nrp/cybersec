@@ -21,10 +21,8 @@
 
 3. The first successful ICMP connection is on packet number `71` 
 
-   `openssl passwd -1 -salt p8Y6 6sK0_enable`
-
    <p align="left">
-   <img height="auto" width="auto" src="https://i.imgur.com/0cDIHYm.png">
+   <img height="auto" width="auto" src="https://i.imgur.com/W2E9G4a.png">
    </p>
 
 ### 3. Conclusion
