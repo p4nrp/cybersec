@@ -107,7 +107,8 @@ Cracking: Instantly reversible with tools
 1. Try MD-5 first
     > enable secret 5 $1$p8Y6$MCdRLBzuGlfOs9S.hXOp0. (md-5) 
       `Try cracking using hashcat first, is it failed, should we gather another hint again`   
-   [^bignote]: As we know here this is a `md5crypt, MD5 (Unix), Cisco-IOS $1$ (MD5) 2` and have an salt `p8Y6`
+    >  
+    As we know here this is a `md5crypt, MD5 (Unix), Cisco-IOS $1$ (MD5) 2` and have an salt `p8Y6`
 
 2. Lets try to decrypt cisco type 7
 
