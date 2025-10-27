@@ -1,17 +1,8 @@
 # Cisco Type 7 Challenge
 
-* [.](https://github.com/p4nrp/testnet/blob/main/taiko.md#1-Installation-Docker)
-* [.](https://github.com/p4nrp/testnet/blob/main/taiko.md#2-Alchemy-Setting)
-* [.](https://github.com/p4nrp/testnet/blob/main/taiko.md#3-Setup-And-Run-Node)
-* [.](https://github.com/p4nrp/testnet/blob/main/taiko.md#4-Monitor-Node)
-* [.](https://github.com/p4nrp/testnet/blob/main/taiko.md#usefull-commands)
+### 1. Cisco Type 7 Challenge
 
-### 1. Installation Docker
-
-Install docker 
-install a few prerequisite packages which let apt use packages over HTTPS:
-
-<p align="center">
+<p align="left">
   <img height="auto" width="auto" src="https://i.imgur.com/DB4IQDJ.png">
 </p>
 
