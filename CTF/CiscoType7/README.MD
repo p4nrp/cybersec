@@ -84,10 +84,27 @@ line vty 0 4
  transport input ssh
 ```
 
-add the GPG key for the official Docker repository to your system:
+We found many password is encrypted
 ```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+Type 5 Passwords (MD5 Hash)
+Format: enable secret 5 $hash
+Security: One-way MD5 hashing
+Example: $1$p8Y6$MCdRLBzuGlfOs9S.hXOp0.
+Cracking: Requires brute-force/dictionary attacks
+
+Type 7 Passwords (Weak Encryption)
+Format: password 7 encrypted_string 
+Security: Weak reversible encryption
+Example: 025017705B3907344E
+Cracking: Instantly reversible with tools
 ```
+1. Type 5 Passwords (MD5 Hash)
+  1. enable secret 5 $1$p8Y6$MCdRLBzuGlfOs9S.hXOp0.
+2. Cisco Type 7 Passwords
+  1. username hub password 7 025017705B3907344E
+  2. username admin privilege 15 password 7 10181A325528130F010D24
+  3. username guest password 7 124F163C42340B112F3830
+
 
 add the Docker repository to APT sources:
 ```
