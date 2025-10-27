@@ -105,10 +105,11 @@ Cracking: Instantly reversible with tools
 
 ### 2. Try cracking
 1. Try first one by one
-    > enable secret 5 $1$p8Y6$MCdRLBzuGlfOs9S.hXOp0. (md-5) `Try cracking using hashcat first, is it failed, should we gather another hint again`
-    > blockquote username hub password 7 025017705B3907344E (cisco type-7)
-    > blockquote username admin privilege 15 password 7 10181A325528130F010D24 (cisco type-7)
-    > blockquote username guest password 7 124F163C42340B112F3830 (cisco type-7)
+    > enable secret 5 $1$p8Y6$MCdRLBzuGlfOs9S.hXOp0. (md-5) 
+      `Try cracking using hashcat first, is it failed, should we gather another hint again`    
+    > username hub password 7 025017705B3907344E (cisco type-7)
+    > username admin privilege 15 password 7 10181A325528130F010D24 (cisco type-7)
+    > username guest password 7 124F163C42340B112F3830 (cisco type-7)
 
 2. Select `+CREATE NEW APP`
 3. Define name apps
