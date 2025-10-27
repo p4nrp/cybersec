@@ -1,9 +1,9 @@
  Cisco Type 7 Challenge
 ### 1. Cisco Type 7 Challenge
-       <p align="center">
-       <p align="left">
-       <img height="auto" width="auto" src="https://i.imgur.com/DB4IQDJ.png">
-       </p>
+     <p align="center">
+     <p align="left">
+     <img height="auto" width="auto" src="https://i.imgur.com/DB4IQDJ.png">
+     </p>
 
 
 lets analyze the log given
