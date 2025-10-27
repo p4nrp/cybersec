@@ -1,11 +1,10 @@
 # IP - TTL Exchange Challenge
 
 ### 1. IP - TTL Exchange Challenge
-
-<p align="center">
-<p align="left">
-  <img height="auto" width="auto" src="https://i.imgur.com/xG1eKVt.png">
-</p>
+   <p align="center">
+   <p align="left">
+   <img height="auto" width="auto" src="https://i.imgur.com/xG1eKVt.png">
+   </p>
 
 ### 2. Lets Analyze the ICMP Packet Exchange using Wireshark
 1. This The Packet 
