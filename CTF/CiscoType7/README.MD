@@ -131,7 +131,7 @@ Cracking: Instantly reversible with tools
    `openssl passwd -1 -salt p8Y6 6sK0_enable`
 
 
-<p align="center">
+<p align="left">
 <img height="auto" width="auto" src="https://i.imgur.com/0cDIHYm.png">
 </p>
 <p align="center">
