@@ -116,7 +116,7 @@ Cracking: Instantly reversible with tools
    >
    > we got a hint, the every password is using `6sK0_` on the first word
    >
-3. Lets try to hashing to md-5, with a hint we got, such as `6sK0_` on the first word, and use salt of encrypted enable password `p8Y6`
+3. Lets try to hashing to md-5, with a hint we got, such as `6sK0_` on the first word, and use salt of encrypted enable password before `p8Y6`
 
    `openssl passwd -1 -salt p8Y6 6sK0_enable`
 
