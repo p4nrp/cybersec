@@ -125,4 +125,4 @@ Cracking: Instantly reversible with tools
    </p>
 
 ### 3. Conclusion
-### the password for user enable is `6sK0_enable`
+### the password for user "enable" is `6sK0_enable`
