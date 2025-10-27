@@ -74,7 +74,7 @@ line vty 0 4
  transport input ssh
 ```
 
-We found many password is encrypted
+We found two type encryption here
 ```
 Type 5 Passwords (MD5 Hash)
 Format: enable secret 5 $hash
