@@ -102,7 +102,7 @@ Cracking: Instantly reversible with tools
 
 2. Lets try to decrypt cisco type 7 password of `admin` `hub` `guest` user.
    > We can use this repo to decrypt it: [c7_decrypt](https://github.com/derek-shnosh/c7_decrypt)
-   >
+   > - Example command
    > ```bash
    > python3 c7_decrypt.py -s 10181A325528130F010D24
    > ```
