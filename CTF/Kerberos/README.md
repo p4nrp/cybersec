@@ -31,6 +31,8 @@ the password is "kittycat12"
   <img height="auto" width="auto" src="https://i.imgur.com/xP3RXmX.png">
 </p>
 
+### 4. Conclusion
+### The Flag Kerberos password is `RM{william.dupond@catcorp.local:kittycat12}`
 
 # [Challenge Link](https://www.root-me.org/en/Challenges/Network/Kerberos-Authentication?lang=en)
 
