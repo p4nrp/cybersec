@@ -76,7 +76,7 @@ line vty 0 4
 
 We found two type encryption here
 ```
-Type 5 Passwords (MD5 Hash)
+Type 5 Passwords (MD5 Crypt Hash)
 Format: enable secret 5 $hash
 Security: One-way MD5 hashing
 Example: $1$p8Y6$MCdRLBzuGlfOs9S.hXOp0.
@@ -88,14 +88,14 @@ Security: Weak reversible encryption
 Example: 025017705B3907344E
 Cracking: Instantly reversible with tools
 ```
-* enable secret 5 $1$p8Y6$MCdRLBzuGlfOs9S.hXOp0. (md-5) 
+* enable secret 5 $1$p8Y6$MCdRLBzuGlfOs9S.hXOp0. (md-5 crypt) 
 * username hub password 7 025017705B3907344E (cisco type-7)
 * username admin privilege 15 password 7 10181A325528130F010D24 (cisco type-7)
 * username guest password 7 124F163C42340B112F3830 (cisco type-7)
 
 ### 2. Try cracking
 1. Try MD-5 first
-    > enable secret 5 $1$p8Y6$MCdRLBzuGlfOs9S.hXOp0. (md-5) 
+    > enable secret 5 $1$p8Y6$MCdRLBzuGlfOs9S.hXOp0. (md-5 crypt) 
       `Try cracking using hashcat first, is if it fail to cracked, should we gather another hint again`   
     >  
     As we know here this is a `md5crypt, MD5 (Unix), Cisco-IOS $1$ (MD5) 2` and have an salt `p8Y6`
@@ -120,7 +120,7 @@ Cracking: Instantly reversible with tools
    >
    > we got a hint, the every password is using `6sK0_` on the first word
    >
-3. Lets try to hashing to md-5, with a hint we got before, such as `6sK0_` on the first word, and use salt of encrypted enable password before `p8Y6`
+3. Lets try to hashing to md-5 crypt, with a hint we got before, such as `6sK0_` on the first word, and use salt of encrypted enable password before `p8Y6`
 
    `openssl passwd -1 -salt p8Y6 6sK0_enable`
 
