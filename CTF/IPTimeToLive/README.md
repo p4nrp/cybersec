@@ -13,7 +13,7 @@
    <img height="auto" width="auto" src="https://i.imgur.com/gkigK6w.png">
    </p>
 
-2. As we see on screenshot number one before, the packet ICMP and have TTL connection successful is just on packet number `71 to 76`
+2. As we can see on screenshot number one before, the packet ICMP and have TTL connection successful is just on packet number `71 to 76`
    <p align="center">
    <p align="left">
    <img height="auto" width="auto" src="https://i.imgur.com/7GKX0Wm.png">
