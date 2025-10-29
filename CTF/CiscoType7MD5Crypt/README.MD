@@ -118,7 +118,7 @@ Cracking: Instantly reversible with tools
    - **hub    :** `6sK0_hub`
    - **guest  :** `6sK0_guest`
    >
-   > we got a hint, the every password is using `6sK0_` on the first word
+   > we got a hint here, the every password of user is using `6sK0_` on the first word
    >
 3. Lets try to hashing to md-5 crypt, with a hint we got before, such as `6sK0_` on the first word, and use salt of encrypted enable password before `p8Y6`
 
