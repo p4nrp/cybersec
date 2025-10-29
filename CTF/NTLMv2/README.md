@@ -52,6 +52,7 @@ the password is "rootbeer" `john.doe::catcorp.local:1944952f5b845db1:5c336c6b69f
   <img height="auto" width="auto" src="https://i.imgur.com/KVHbsBt.png">
 </p>
 
-
+### Conclusion
+### The Flag NTLMv2 password is `RM{john.doe@catcorp.local:rootbeer}`
 # Challenge link 
 # https://www.root-me.org/en/Challenges/Network/NTLM-Authentication#pagination_dernieres_validations
