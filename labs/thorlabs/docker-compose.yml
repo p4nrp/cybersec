@@ -1,6 +1,4 @@
-version: '2.4'
-
-volumes:
+olumes:
   opt-splunk-etc: {}
   opt-splunk-var: {}
 
@@ -12,6 +10,7 @@ services:
     mem_limit: 2G
     environment:
       - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_GENERAL_TERMS=--accept-sgt-current-at-splunk-com
       - SPLUNK_ENABLE_LISTEN=9997
       - SPLUNK_ADD=tcp 1514
       - SPLUNK_PASSWORD=thor-lab@123
