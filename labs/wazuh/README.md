@@ -14,7 +14,7 @@ sudo tar -O -xvf wazuh-install-files.tar wazuh-install-files/wazuh-passwords.txt
 
 
 
-### 2. Install windows agent
+### 2. Set windows agent
 1. Download windows agent [Windows_Installer](https://packages.wazuh.com/4.x/windows/wazuh-agent-4.14.1-1.msi)
    
 
