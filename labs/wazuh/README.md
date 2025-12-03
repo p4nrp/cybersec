@@ -1,4 +1,4 @@
- Cisco Type 7 Challenge
+
 ### 1. Wazuh installation
 
 installation
