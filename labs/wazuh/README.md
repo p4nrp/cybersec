@@ -217,4 +217,18 @@ Restart suricata
 systemctl restart suricata
 ```
 
-
+Integration Suricata logs to Wazuh agent
+```
+nano /etc/var/ossec/etc/ossec.conf
+```
+add this 
+```
+<localfile>	
+<log_format>json</log_format>	
+<location>/var/log/suricata/eve.json</location>	
+</localfile>
+```
+restart agent
+```
+systemctl restart wazuh-agent
+```
