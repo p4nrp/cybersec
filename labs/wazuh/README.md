@@ -42,6 +42,16 @@ ossec.conf for edit ip
     ```
 
 ### 3. Set Linux agent
- 
 
+Set linux agent using this script 
+``` 
+wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.14.1-1_amd64.deb && sudo WAZUH_MANAGER='192.168.1.142' WAZUH_AGENT_NAME='ubuntuvuln' dpkg -i ./wazuh-agent_4.14.1-1_amd64.deb
+```
+start agent
+```
+sudo systemctl daemon-reload
+sudo systemctl enable wazuh-agent
+sudo systemctl start wazuh-agent
+```
 
+### 4. Set Linux agent
