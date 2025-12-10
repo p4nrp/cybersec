@@ -177,3 +177,44 @@ confirmation log success
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/IJTSBgu.png"> 
 </p>
+
+### 6. IDS Suricata on linux agent
+Install suricata IDS
+```
+sudo add-apt-repository ppa:oisf/suricata-stable	
+sudo apt-get update	
+sudo apt-get install suricata -y
+```
+Download and extract Threat suricata ruleset
+```
+cd /tmp/ && curl -LO https://rules.emergingthreats.net/open/suricata-6.0.8/emerging.rules.tar.gz sudo tar -xvzf emerging-rules.tar.gz && sudo mv rules/* rules /etc/suricata/rules/	
+sudo chmod 640 /etc/suricata/rules/* rules
+```
+
+Edit suricata .yaml
+```
+nano /etc/suricata/suricata.yaml
+```
+
+```
+HOME_NET: "<UBUNTU_IP>"	
+EXTERNAL_NET: "any"	
+default-rule-path: /etc/suricata/rules	
+rule-files:	
+- "*_rules"	
+
+# Global stats configuration	
+stats:	
+enabled: Yes	
+
+# Linux high speed capture support	
+af-packet:	
+- interface: ethe
+```
+
+Restart suricata 
+```
+systemctl restart suricata
+```
+
+
