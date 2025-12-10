@@ -1,5 +1,5 @@
 
-### 1. Wazuh installation
+### 1. Wazuh Manager installation
 
 installation
 ```
