@@ -64,4 +64,65 @@ Confirmation Agent Enrollment Successfull
   <img height="auto" width="auto" src="https://i.imgur.com/rvNsrMs.png"> 
 </p>
 
-### 4. Set Linux agent
+### 4. Set File integrity Monitoring on Wazuh Manager
+
+```
+<ossec_config>
+  <global>
+    <jsonout_output>yes</jsonout_output>
+    <alerts_log>yes</alerts_log>
+    <logall>yes</logall>
+    <logall_json>yes</logall_json>
+  </global>
+
+  <!-- Rootcheck policy monitoring -->
+  <rootcheck>
+    <disabled>no</disabled>
+    <check_files>yes</check_files>
+    <check_trojans>yes</check_trojans>
+    <check_dev>yes</check_dev>
+    <check_sys>yes</check_sys>
+    <check_pids>yes</check_pids>
+    <check_ports>yes</check_ports>
+    <check_if>yes</check_if>
+  </rootcheck>
+
+  <!-- Vulnerability Detection -->
+  <vulnerability-detection>
+    <enabled>yes</enabled>
+    <index-status>yes</index-status>
+    <feed-update-interval>60m</feed-update-interval>
+  </vulnerability-detection>
+
+  <!-- FIM -->
+  <syscheck>
+    <disabled>no</disabled>
+    <frequency>43200</frequency>
+    <scan_on_start>yes</scan_on_start>
+    <alert_new_files>yes</alert_new_files>
+  </syscheck>
+
+  <!-- System Inventory -->
+  <wodle name="syscollector">
+    <disabled>no</disabled>
+    <interval>1h</interval>
+    <scan_on_start>yes</scan_on_start>
+    <hardware>yes</hardware>
+    <os>yes</os>
+    <network>yes</network>
+    <packages>yes</packages>
+    <ports all="yes">yes</ports>
+    <processes>yes</processes>
+    <users>yes</users>
+    <groups>yes</groups>
+    <services>yes</services>
+    <browser_extensions>yes</browser_extensions>
+  </wodle>
+</ossec_config>
+
+```
+
+restart
+```
+systemctl restart wazuh-manager
+```
