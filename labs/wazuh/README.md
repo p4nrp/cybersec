@@ -166,3 +166,14 @@ nano /var/ossec/etc/ossec.conf
     </directories>
 
 ```
+restart wazuh agent 
+
+```
+systemctl restart wazuh-agent
+```
+
+confirmation log success
+
+<p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/IJTSBgu.png"> 
+</p>
