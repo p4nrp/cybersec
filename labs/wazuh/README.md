@@ -24,6 +24,10 @@ systemctl status wazuh-manager
 
 Login wazuh dashboard using your machine ip address
 
+<p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/JFNqXrV.png"> \
+</p>
+
 
 ### 2. Set windows agent
 
