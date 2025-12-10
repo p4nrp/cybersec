@@ -58,4 +58,10 @@ sudo systemctl enable wazuh-agent
 sudo systemctl start wazuh-agent
 ```
 
+Confirmation Agent Enrollment Successfull 
+
+<p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/rvNsrMs.png"> 
+</p>
+
 ### 4. Set Linux agent
