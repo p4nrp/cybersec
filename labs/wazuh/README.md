@@ -219,7 +219,7 @@ systemctl restart suricata
 
 Integration Suricata logs to Wazuh agent
 ```
-nano /etc/var/ossec/etc/ossec.conf
+nano /var/ossec/etc/ossec.conf
 ```
 add this 
 ```
