@@ -232,3 +232,7 @@ restart agent
 ```
 systemctl restart wazuh-agent
 ```
+check suricata logs triggered or not 
+<p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/ALiIAoW.png"> 
+</p>
