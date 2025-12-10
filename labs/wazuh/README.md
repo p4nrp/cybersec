@@ -236,3 +236,15 @@ check suricata logs triggered or not
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/ALiIAoW.png"> 
 </p>
+
+Try scanning using nmap 
+
+<p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/b3e1p6b.png"> 
+</p>
+
+Confirmation alert successfully triggered
+
+<p align="center">
+  <img height="auto" width="auto" src="https://i.imgur.com/HIPPOa6.png"> 
+</p>
