@@ -67,6 +67,10 @@ Confirmation Agent Enrollment Successfull
 ### 4. Set File integrity Monitoring on Wazuh Manager
 
 ```
+nano /var/ossec/etc/ossec.conf
+```
+
+```
 <ossec_config>
   <global>
     <jsonout_output>yes</jsonout_output>
@@ -125,4 +129,40 @@ Confirmation Agent Enrollment Successfull
 restart
 ```
 systemctl restart wazuh-manager
+```
+### 5. Set File integrity Monitoring on Wazuh Agent
+
+```
+nano /var/ossec/etc/ossec.conf
+```
+
+```
+<!-- File integrity monitoring -->
+  <syscheck>
+    <disabled>no</disabled>
+
+<directories check_all="yes" report_changes="yes" realtime="yes">/root</directories>
+    <directories check_all="yes" realtime="yes">/home/pan/</directories>
+
+    <directories check_all="yes" realtime="yes" report_changes="yes">/etc</directories>
+    <directories check_all="yes" realtime="yes">
+    /bin,
+    /boot,
+    /dev,
+    /lib,
+    /lib64,
+    /sbin,
+    /usr/lib,
+    /usr/local/bin,
+    /usr/local/lib,
+    /usr/local/sbin,
+    /root/.ssh
+    </directories>
+
+    <directories check_all="yes" realtime="yes" restrict="^(\/dev|\/proc|\/sys)">/root</directories>
+
+    <directories check_all="yes" realtime="yes">
+    /var/log
+    </directories>
+
 ```
