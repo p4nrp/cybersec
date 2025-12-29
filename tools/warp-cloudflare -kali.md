@@ -31,6 +31,10 @@ $ git clone https://github.com/ALIILAPRO/cloudflare-gui-warp
 
 $ cd cloudflare-gui-warp
 
+Check 
+```
+curl https://www.cloudflare.com/cdn-cgi/trace/
+```
 $ python warp-GUI.py
 or
 $ python3 warp-GUI.py
