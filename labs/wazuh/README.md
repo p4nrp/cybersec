@@ -248,3 +248,156 @@ Confirmation alert successfully triggered
 <p align="center">
   <img height="auto" width="auto" src="https://i.imgur.com/HIPPOa6.png"> 
 </p>
+
+### 6. Virustotal Integration malware detection
+
+Set on ubuntu endpoint 
+```
+nano /var/ossec/etc/ossec.conf
+```
+
+add folder to be pointed to detect malware
+```
+<directories check_all="yes" report_changes="yes" realtime="yes">/root</directories>
+```
+
+Install jq, a utility that processes JSON input from the active response script
+```
+sudo apt update
+sudo apt -y install jq
+```
+
+create automation remove threat 
+```
+nano /var/ossec/active-response/bin/remove-threat.sh
+```
+
+add this 
+```
+#!/bin/bash
+
+LOCAL=`dirname $0`;
+cd $LOCAL
+cd ../
+
+PWD=`pwd`
+
+read INPUT_JSON
+FILENAME=$(echo $INPUT_JSON | jq -r .parameters.alert.data.virustotal.source.file)
+COMMAND=$(echo $INPUT_JSON | jq -r .command)
+LOG_FILE="${PWD}/../logs/active-responses.log"
+
+#------------------------ Analyze command -------------------------#
+if [ ${COMMAND} = "add" ]
+then
+ # Send control message to execd
+ printf '{"version":1,"origin":{"name":"remove-threat","module":"active-response"},"command":"check_keys", "parameters":{"keys":[]}}\n'
+
+ read RESPONSE
+ COMMAND2=$(echo $RESPONSE | jq -r .command)
+ if [ ${COMMAND2} != "continue" ]
+ then
+  echo "`date '+%Y/%m/%d %H:%M:%S'` $0: $INPUT_JSON Remove threat active response aborted" >> ${LOG_FILE}
+  exit 0;
+ fi
+fi
+
+# Removing file
+rm -f $FILENAME
+if [ $? -eq 0 ]; then
+ echo "`date '+%Y/%m/%d %H:%M:%S'` $0: $INPUT_JSON Successfully removed threat" >> ${LOG_FILE}
+else
+ echo "`date '+%Y/%m/%d %H:%M:%S'` $0: $INPUT_JSON Error removing threat" >> ${LOG_FILE}
+fi
+
+exit 0;
+
+```
+
+Change the /var/ossec/active-response/bin/remove-threat.sh file ownership, and permissions:
+```
+sudo chmod 750 /var/ossec/active-response/bin/remove-threat.sh
+sudo chown root:wazuh /var/ossec/active-response/bin/remove-threat.sh
+```
+restart agent
+```
+sudo systemctl restart wazuh-agent
+```
+
+Add rule on wazuh-manager
+```
+nano /var/ossec/etc/rules/local_rules.xml
+```
+add 
+```
+<group name="syscheck,pci_dss_11.5,nist_800_53_SI.7,">
+    <!-- Rules for Linux systems -->
+    <rule id="100200" level="7">
+        <if_sid>550</if_sid>
+        <field name="file">/root</field>
+        <description>File modified in /root directory.</description>
+    </rule>
+    <rule id="100201" level="7">
+        <if_sid>554</if_sid>
+        <field name="file">/root</field>
+        <description>File added to /root directory.</description>
+    </rule>
+</group>
+
+<group name="virustotal,">
+  <rule id="100092" level="12">
+    <if_sid>657</if_sid>
+    <match>Successfully removed threat</match>
+    <description>$(parameters.program) removed threat located at $(parameters.alert.data.virustotal.source.file)</description>
+  </rule>
+
+  <rule id="100093" level="12">
+    <if_sid>657</if_sid>
+    <match>Error removing threat</match>
+    <description>Error removing threat located at $(parameters.alert.data.virustotal.source.file)</description>
+  </rule>
+</group>
+
+```
+
+add configuration on `/var/ossec/etc/ossec.conf` to set api virustotal
+```
+<ossec_config>
+  <integration>
+    <name>virustotal</name>
+    <api_key>YOUR_VIRUS_TOTAL_API_KEY</api_key> <!-- Replace with your VirusTotal API key -->
+    <rule_id>100200,100201</rule_id>
+    <alert_format>json</alert_format>
+  </integration>
+</ossec_config>
+```
+add Active Response and triggers for remove-threat.sh on `/var/ossec/etc/ossec.conf`
+```
+<ossec_config>
+  <command>
+    <name>remove-threat</name>
+    <executable>remove-threat.sh</executable>
+    <timeout_allowed>no</timeout_allowed>
+  </command>
+
+  <active-response>
+    <disabled>no</disabled>
+    <command>remove-threat</command>
+    <location>local</location>
+    <rules_id>87105</rules_id>
+  </active-response>
+</ossec_config>
+```
+Restart wazuh server
+```
+sudo systemctl restart wazuh-manager
+```
+
+Attack emulation
+Download an EICAR test file to the /root directory on the Ubuntu endpoint:
+```
+sudo curl -Lo /root/eicar.com https://secure.eicar.org/eicar.com && sudo ls -lah /root/eicar.com
+```
+confirm the alert is successfull
+
+
