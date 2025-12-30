@@ -401,3 +401,44 @@ sudo curl -Lo /root/eicar.com https://secure.eicar.org/eicar.com && sudo ls -lah
 confirm the alert is successfull
 
 
+### 7. WAF Mod Security integration 
+
+install and enable modsecurity extension from apache
+```
+sudo apt install libapache2-mod-security2
+sudo a2enmod security2
+sudo systemctl restart apache2
+```
+enable modsecurity engine
+```
+cp /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
+```
+
+enable `SecRuleEngine`
+```
+nano /etc/modsecurity/modsecurity.conf
+```
+```
+SecRuleEngine On
+```
+
+restart
+```
+systemctl restart apache2
+```
+
+forward modsecurity logs from wazuh agent to wazuh manager
+```
+nano /var/ossec/etc/ossec.conf
+```
+add this 
+```
+<localfile>
+ <log_format>apache</log_format>
+ <location>/var/log/apache2/error.log</location>
+</localfile>
+```
+restart
+```
+sudo systemctl restart wazuh-agent
+```
