@@ -49,7 +49,7 @@ http://192.168.1.77:8000/
 </p>
 
 
-### 2. Set windows agent
+### 2. install universal forwarder for Linux endpoint
 
 Set windows agent using powershell script 
 ```
