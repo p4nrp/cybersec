@@ -12,21 +12,40 @@ Installation
 dpkg -i splunk-9.2.2-d76edf6f0a15-linux-2.6-amd64.deb
 ```
 
-Check installation successful or not 
+move to folder installation and Check installation successful or not 
 ```
 cd /opt/splunk/bin/
 ```
 
 start splunk and configure
-
 ```
 ./splunk start
 ```
 
-Login wazuh dashboard using your machine ip address
+
+after configure success stop splunk first to change bind ip to 0.0.0.0
+```
+cd /opt/splunk/bin/
+./splunk stop
+```
+
+edit splunk config `nano /opt/splunk/etc/splunk-launch.conf`
+```
+SPLUNK_BINDIP=0.0.0.0
+```
+
+start splunk again navigate to `cd /opt/splunk/bin/`
+```
+./splunk start
+```
+
+Access splunk dashboard
+```
+http://192.168.1.77:8000/
+```
 
 <p align="center">
-  <img height="auto" width="auto" src="https://i.imgur.com/JFNqXrV.png"> \
+  <img height="auto" width="auto" src="https://i.imgur.com/WD14Xi4.png"> \
 </p>
 
 
