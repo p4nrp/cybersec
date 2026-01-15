@@ -56,3 +56,25 @@ Download universal forwarder from or check [THIS](https://www.splunk.com/en_us/d
 wget -O splunkforwarder-10.0.2-e2d18b4767e9-linux-amd64.deb "https://download.splunk.com/products/universalforwarder/releases/10.0.2/linux/splunkforwarder-10.0.2-e2d18b4767e9-linux-amd64.deb"
 ```
 
+Install it 
+```
+dpkg -i splunkforwarder-10.0.2-e2d18b4767e9-linux-amd64.deb
+```
+
+accept license
+```
+sudo /opt/splunkforwarder/bin/splunk start --accept-license
+```
+forward to splunk server 
+```
+sudo /opt/splunkforwarder/bin/splunk add forward-server <IP_SPLUNK_SERVER>:9997 -auth admin:<password>
+```
+add log path and send to be monitored by splunk server
+```
+sudo /opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log
+```
+add receiving port 9997 on splunk server
+start
+```
+/opt/splunkforwarder/bin/splunk start
+```
