@@ -51,8 +51,8 @@ http://192.168.1.77:8000/
 
 ### 2. install universal forwarder for Linux endpoint
 
-Set windows agent using powershell script 
+Download universal forwarder from or check [THIS](https://www.splunk.com/en_us/download/universal-forwarder.html)
 ```
-  
+wget -O splunkforwarder-10.0.2-e2d18b4767e9-linux-amd64.deb "https://download.splunk.com/products/universalforwarder/releases/10.0.2/linux/splunkforwarder-10.0.2-e2d18b4767e9-linux-amd64.deb"
 ```
 
