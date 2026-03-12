@@ -4,7 +4,7 @@ Link 1: https://pkg.cloudflareclient.com/#debian
 Link 2: https://github.com/ALIILAPRO/cloudflare-gui-warp
 
 1. Open Terminal and copy and paste the following commands :
-
+```
 $ sudo su
 
 $ sudo apt update
@@ -17,8 +17,9 @@ $ curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dear
 
 # Add this repo to your apt repositories
 $ echo "deb [signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ jammy main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
-
+```
 # Install
+```
 $ sudo apt-get update && sudo apt-get install cloudflare-warp
 
 $ warp-cli registration new
@@ -30,7 +31,7 @@ $ curl https://www.cloudflare.com/cdn-cgi/trace/
 $ git clone https://github.com/ALIILAPRO/cloudflare-gui-warp
 
 $ cd cloudflare-gui-warp
-
+```
 Check 
 ```
 curl https://www.cloudflare.com/cdn-cgi/trace/
