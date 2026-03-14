@@ -65,10 +65,11 @@ accept license
 ```
 sudo /opt/splunkforwarder/bin/splunk start --accept-license
 ```
-forward to splunk server 
+forward to splunk server (splunk indexer)
 ```
 sudo /opt/splunkforwarder/bin/splunk add forward-server <IP_SPLUNK_SERVER>:9997 -auth admin:<password>
-```
+
+``` 
 add log path and send to be monitored by splunk server
 ```
 sudo /opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log
