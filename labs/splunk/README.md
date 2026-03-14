@@ -69,16 +69,52 @@ forward to splunk server (splunk indexer)
 ```
 sudo /opt/splunkforwarder/bin/splunk add forward-server <IP_SPLUNK_SERVER>:9997 -auth admin:<password>
 
-``` 
-add log path and send to be monitored by splunk server
+EX: /opt/splunkforwarder/bin/splunk add forward-server 172.27.54.188:9997-auth admin:password
 ```
-sudo /opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log
+
+Configure the universal forwarder to connect to a deployment server
 ```
-add receiving port 9997 on splunk server
-start
+/opt/splunkforwarder/bin/splunk set deploy-poll <host name or ip address>:<management port>
+
+EX : /opt/splunkforwarder/bin/splunk set deploy-poll 172.27.54.188:8089 -auth admin:password
+```
+
+add log path that will be monitored
+```
+sudo /opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log -auth admin:password
+```
+universal forwarder start
 ```
 /opt/splunkforwarder/bin/splunk start
 ```
+universal forwarder restart
+```
+/opt/splunkforwarder/bin/splunk restart
+```
+
+Enable Receiving on the Splunk Server
+```
+Log in to your Splunk Web UI (172.27.54.188:8000).
+
+Go to Settings > Forwarding and receiving.
+
+In the Receive data section, click + Add New.
+
+Enter 9997 in the "Listen on this port" box.
+
+Click Save.
+```
+
+verify the ubuntu server connection is established
+```
+netstat -ant | grep 9997
+```
+
+try tou query 
+```
+index=* host="ubuntu-server" source="/var/log/auth.log"
+```
+
 Check 
 
 ```
