@@ -78,3 +78,8 @@ start
 ```
 /opt/splunkforwarder/bin/splunk start
 ```
+Check 
+
+```
+cd /opt/splunkforwarder/etc/system/local
+```
