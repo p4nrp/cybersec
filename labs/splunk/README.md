@@ -49,9 +49,9 @@ http://192.168.1.77:8000/
 </p>
 
 
-### 2. install universal forwarder for Linux endpoint
+### 2. install and configure universal forwarder for Linux endpoint
 
-Download universal forwarder from or check [THIS](https://www.splunk.com/en_us/download/universal-forwarder.html)
+Download universal forwarder [THIS](https://www.splunk.com/en_us/download/universal-forwarder.html)
 ```
 wget -O splunkforwarder-10.0.2-e2d18b4767e9-linux-amd64.deb "https://download.splunk.com/products/universalforwarder/releases/10.0.2/linux/splunkforwarder-10.0.2-e2d18b4767e9-linux-amd64.deb"
 ```
@@ -120,3 +120,7 @@ Check
 ```
 cd /opt/splunkforwarder/etc/system/local
 ```
+3. install and configure universal forwarder for Linux endpoint
+
+Download universal forwarder [THIS](https://www.splunk.com/en_us/download/universal-forwarder.html)
+
