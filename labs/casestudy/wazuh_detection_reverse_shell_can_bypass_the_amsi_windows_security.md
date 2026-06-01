@@ -248,3 +248,25 @@ nano /var/ossec/etc/rules/local_rules.xml
 
 </group>
 ```
+
+### 4. Testing
+
+<p align="center">
+  <img height="auto" width="auto" src="https://imgur.com/a/jKaaWEQ"> \
+</p>
+
+<p align="center">
+  <img height="auto" width="auto" src="https://imgur.com/a/1ELqUgS"> \
+</p>
+
+<p align="center">
+  <img height="auto" width="auto" src="https://imgur.com/a/t0E0DT6"> \
+</p>
+
+<p align="center">
+  <img height="auto" width="auto" src="https://imgur.com/a/t0E0DT6"> \
+</p>
+
+<p align="center">
+  <img height="auto" width="auto" src="https://imgur.com/a/t0E0DT6"> \
+</p>
