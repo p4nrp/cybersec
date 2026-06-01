@@ -57,12 +57,15 @@ install sysmon
 ```
 set ossec.conf  
 ```
-<!-- sysmon detect the network behavior -->
 <localfile>
  <location>Microsoft-Windows-Sysmon/Operational</location> <log_format>eventchannel</log_format>
 </localfile>
 
-<!-- detect payload behavior -->
+<localfile>
+  <location>Microsoft-Windows-PowerShell/Operational</location>
+  <log_format>eventchannel</log_format>
+</localfile>
+
 <localfile>
   <location>Microsoft-Windows-PowerShell/Operational</location>
   <log_format>eventchannel</log_format>
