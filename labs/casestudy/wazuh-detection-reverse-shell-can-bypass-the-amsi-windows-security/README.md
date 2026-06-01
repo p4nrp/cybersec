@@ -252,21 +252,21 @@ nano /var/ossec/etc/rules/local_rules.xml
 ### 4. Testing
 
 <p align="center">
-  <img height="auto" width="auto" src="https://imgur.com/a/jKaaWEQ"> \
+  <img height="auto" width="auto" src="https://i.imgur.com/S3Geo5G.png"> \
 </p>
 
 <p align="center">
-  <img height="auto" width="auto" src="https://imgur.com/a/1ELqUgS"> \
+  <img height="auto" width="auto" src="https://i.imgur.com/lX7S7fr.png"> \
 </p>
 
 <p align="center">
-  <img height="auto" width="auto" src="https://imgur.com/a/t0E0DT6"> \
+  <img height="auto" width="auto" src="https://i.imgur.com/UQHgRYk.png"> \
 </p>
 
 <p align="center">
-  <img height="auto" width="auto" src="https://imgur.com/a/t0E0DT6"> \
+  <img height="auto" width="auto" src="https://i.imgur.com/adY4fh4.png"> \
 </p>
 
 <p align="center">
-  <img height="auto" width="auto" src="https://imgur.com/a/t0E0DT6"> \
+  <img height="auto" width="auto" src="https://i.imgur.com/kroFr0U.png"> \
 </p>
