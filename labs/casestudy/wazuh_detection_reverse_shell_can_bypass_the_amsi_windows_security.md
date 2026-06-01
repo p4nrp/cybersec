@@ -40,7 +40,33 @@ start agent
 NET START Wazuh
 ```
 
-ossec.conf for edit ip 
+ossec.conf for edit congiguration path 
     ```
     C:\Program Files (x86)\ossec-agent\ossec.conf
     ```
+Download sysmon.exe and symonconfig.xml  
+```
+Invoke-WebRequest -Uri "https://download.sysinternals.com/files/Sysmon.zip" -OutFile "C:\Users\panvmwin\Downloads\Sysmon.zip"
+```
+```
+Invoke-WebRequest -Uri $ConfigUrl -OutFile "C:\Users\panvmwin\Downloads\sysmonconfig.xml"
+```
+install sysmon
+```
+.\Sysmon64.exe -i C:\Users\panvmwin\Downloads\sysmonconfig.xml -accepteula
+```
+set ossec.conf  
+```
+<!-- sysmon detect the network behavior -->
+<localfile>
+ <location>Microsoft-Windows-Sysmon/Operational</location> <log_format>eventchannel</log_format>
+</localfile>
+
+<!-- detect payload behavior -->
+<localfile>
+  <location>Microsoft-Windows-PowerShell/Operational</location>
+  <log_format>eventchannel</log_format>
+</localfile>
+```
+
+
