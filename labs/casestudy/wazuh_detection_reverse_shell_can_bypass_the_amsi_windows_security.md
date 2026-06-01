@@ -29,7 +29,7 @@ Login wazuh dashboard using your machine ip address
 </p>
 
 
-### 2. Set windows agent
+### 2. windows endpoint install
 
 Set windows agent using powershell 
 ```
@@ -44,5 +44,3 @@ ossec.conf for edit ip
     ```
     C:\Program Files (x86)\ossec-agent\ossec.conf
     ```
-
-
